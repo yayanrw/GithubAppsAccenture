@@ -18,9 +18,7 @@ Github : https://github.com/yayanrw
  **/
 
 class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDataSource {
-    override suspend fun fetchUsers(
-        token: String, since: Int, perPage: Int
-    ): Flow<DataResource<List<UserDto>>> {
+    override suspend fun fetchUsers(since: Int, perPage: Int): Flow<DataResource<List<UserDto>>> {
         return flow {
             try {
                 val response = githubService.getUsers(
@@ -39,20 +37,25 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchUserDetail(
-        token: String, userName: String
-    ): Flow<DataResource<UserDetailDto>> {
-        TODO("Not yet implemented")
+    override suspend fun fetchUserDetail(userName: String): Flow<DataResource<UserDetailDto>> {
+        return flow {
+            try {
+                val response = githubService.getUserDetail(
+                    BuildConfig.API_KEY, userName,
+                )
+                emit(DataResource.Success(response))
+            } catch (e: Exception) {
+                emit(DataResource.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchSearchUser(
-        token: String, query: String
-    ): Flow<DataResource<UserSearchResponse>> {
+    override suspend fun fetchSearchUser(query: String): Flow<DataResource<UserSearchResponse>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun fetchUserFollow(
-        token: String, userName: String, followType: FollowType
+        userName: String, followType: FollowType
     ): Flow<DataResource<List<UserDto>>> {
         TODO("Not yet implemented")
     }
@@ -61,23 +64,19 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
 
 interface RemoteDataSource {
     suspend fun fetchUsers(
-        token: String,
         since: Int,
         perPage: Int,
     ): Flow<DataResource<List<UserDto>>>
 
     suspend fun fetchUserDetail(
-        token: String,
         userName: String,
     ): Flow<DataResource<UserDetailDto>>
 
     suspend fun fetchSearchUser(
-        token: String,
         query: String,
     ): Flow<DataResource<UserSearchResponse>>
 
     suspend fun fetchUserFollow(
-        token: String,
         userName: String,
         followType: FollowType,
     ): Flow<DataResource<List<UserDto>>>
