@@ -70,7 +70,20 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
     override suspend fun fetchUserFollow(
         userName: String, followType: FollowType
     ): Flow<DataResource<List<UserDto>>> {
-        TODO("Not yet implemented")
+        return flow {
+            try {
+                val response = githubService.getUserFollow(
+                    BuildConfig.API_KEY, userName, followType
+                )
+                if (response.isNotEmpty()) {
+                    emit(DataResource.Success(response))
+                } else {
+                    emit(DataResource.Empty)
+                }
+            } catch (e: Exception) {
+                emit(DataResource.Error(e.message.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
 }
