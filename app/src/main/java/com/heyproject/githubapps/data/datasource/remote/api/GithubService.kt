@@ -17,26 +17,26 @@ Github : https://github.com/yayanrw
 interface GithubService {
     @GET("users")
     suspend fun getUsers(
-        @Header("Authorization") auth: String,
+        @Header("Authorization") token: String,
         @Query("since") since: Int,
         @Query("perPage") perPage: Int,
     ): List<UserDto>
 
     @GET("users/{userName}")
     suspend fun getUserDetail(
-        @Header("Authorization") auth: String,
+        @Header("Authorization") token: String,
         @Path("userName") username: String,
     ): UserDetailDto
 
     @GET("search/users")
     suspend fun getSearchUsers(
-        @Header("Authorization") auth: String,
+        @Header("Authorization") token: String,
         @Query("q") query: String,
     ): UserSearchResponse
 
     @GET("users/{userName}/{followType}")
     suspend fun getUserFollow(
-        @Header("Authorization") auth: String,
+        @Header("Authorization") token: String,
         @Path("userName") username: String,
         @Path("followType") followType: FollowType
     ): List<UserDto>
