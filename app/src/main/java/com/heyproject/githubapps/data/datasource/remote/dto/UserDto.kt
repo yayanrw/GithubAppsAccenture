@@ -22,3 +22,4 @@ data class UserDto(
     @SerializedName("type") val type: String?,
     @SerializedName("url") val url: String?
 )
+
