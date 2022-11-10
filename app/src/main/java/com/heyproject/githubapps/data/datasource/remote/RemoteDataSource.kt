@@ -51,7 +51,20 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
     }
 
     override suspend fun fetchSearchUser(query: String): Flow<DataResource<UserSearchResponse>> {
-        TODO("Not yet implemented")
+        return flow {
+            try {
+                val response = githubService.getSearchUsers(
+                    BuildConfig.API_KEY, query
+                )
+                if (response.totalCount > 0) {
+                    emit(DataResource.Success(response))
+                } else {
+                    emit(DataResource.Empty)
+                }
+            } catch (e: Exception) {
+                emit(DataResource.Error(e.message.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun fetchUserFollow(
