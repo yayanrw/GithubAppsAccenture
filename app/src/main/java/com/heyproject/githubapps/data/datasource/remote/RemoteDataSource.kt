@@ -43,7 +43,12 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
                 val response = githubService.getUserDetail(
                     BuildConfig.API_KEY, userName,
                 )
-                emit(DataResource.Success(response))
+
+                if (response.id != null) {
+                    emit(DataResource.Success(response))
+                } else {
+                    emit(DataResource.Empty)
+                }
             } catch (e: Exception) {
                 emit(DataResource.Error(e.toString()))
             }
