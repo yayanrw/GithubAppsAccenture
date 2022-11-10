@@ -21,5 +21,5 @@ data class UserDetailEntity(
     val followers: Int?,
     val following: Int?,
     @ColumnInfo(name = "public_repos") val publicRepos: Int?,
-    val isFavorite: Boolean = false
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
 )
