@@ -18,8 +18,8 @@ interface GithubService {
     @GET("users")
     suspend fun getUsers(
         @Header("Authorization") auth: String,
-        @Query("since") since: Int? = 0,
-        @Query("perPage") perPage: Int = 10,
+        @Query("since") since: Int,
+        @Query("perPage") perPage: Int,
     ): List<UserDto>
 
     @GET("users/{userName}")
