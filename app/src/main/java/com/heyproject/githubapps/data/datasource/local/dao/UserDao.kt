@@ -25,5 +25,5 @@ interface UserDao {
     fun deleteAll()
 
     @Query("SELECT * FROM user WHERE login LIKE '%' || :userName || '%' OR id LIKE '%' || :id || '%'")
-    fun getUsersBy(id: Int, userName: String): Flow<List<UserEntity>>
+    fun searchUser(id: Int, userName: String): Flow<List<UserEntity>>
 }
