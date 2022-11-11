@@ -19,11 +19,11 @@ interface UserDao {
     suspend fun insertUsers(users: List<UserEntity>)
 
     @Query("SELECT * FROM user")
-    fun getUsers(): PagingSource<Int, UserEntity>
+    suspend fun getUsers(): PagingSource<Int, UserEntity>
 
     @Query("DELETE FROM user")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("SELECT * FROM user WHERE login LIKE '%' || :query || '%' OR id LIKE '%' || :query || '%'")
-    fun searchUser(query: String): Flow<List<UserEntity>>
+    suspend fun searchUser(query: String): Flow<List<UserEntity>>
 }
