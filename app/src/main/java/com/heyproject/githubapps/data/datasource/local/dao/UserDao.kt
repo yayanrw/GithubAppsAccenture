@@ -16,7 +16,7 @@ Github : https://github.com/yayanrw
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(users: List<UserEntity>)
+    suspend fun insertUsers(users: List<UserEntity>)
 
     @Query("SELECT * FROM user")
     fun getUsers(): PagingSource<Int, UserEntity>
