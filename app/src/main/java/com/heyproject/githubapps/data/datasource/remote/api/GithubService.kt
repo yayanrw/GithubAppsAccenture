@@ -22,10 +22,10 @@ interface GithubService {
         @Query("perPage") perPage: Int,
     ): List<UserDto>
 
-    @GET("users/{userName}")
+    @GET("users/{login}")
     suspend fun getUserDetail(
         @Header("Authorization") token: String,
-        @Path("userName") username: String,
+        @Path("login") login: String,
     ): UserDetailDto
 
     @GET("search/users")
@@ -34,10 +34,10 @@ interface GithubService {
         @Query("q") query: String,
     ): UserSearchResponse
 
-    @GET("users/{userName}/{followType}")
+    @GET("users/{login}/{followType}")
     suspend fun getUserFollow(
         @Header("Authorization") token: String,
-        @Path("userName") username: String,
+        @Path("login") login: String,
         @Path("followType") followType: FollowType
     ): List<UserDto>
 }
