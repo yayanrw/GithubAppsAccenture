@@ -22,7 +22,7 @@ interface UserDao {
     suspend fun getUsers(): PagingSource<Int, UserEntity>
 
     @Query("DELETE FROM user")
-    suspend fun deleteAll()
+    suspend fun deleteUsers()
 
     @Query("SELECT * FROM user WHERE login LIKE '%' || :query || '%' OR id LIKE '%' || :query || '%'")
     suspend fun searchUser(query: String): Flow<List<UserEntity>>

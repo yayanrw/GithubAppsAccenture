@@ -18,8 +18,8 @@ interface UserDetailDao {
     suspend fun insertUserDetail(user: UserDetailEntity)
 
     @Query("SELECT * FROM user_detail WHERE login = :login")
-    fun getUserDetail(login: String): UserDetailDto
+    suspend fun getUserDetail(login: String): UserDetailDto
 
     @Query("DELETE FROM user_detail")
-    fun deleteAll()
+    suspend fun deleteUserDetail()
 }
