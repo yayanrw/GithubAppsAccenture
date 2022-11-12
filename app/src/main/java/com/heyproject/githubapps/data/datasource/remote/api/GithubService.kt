@@ -21,7 +21,7 @@ interface GithubService {
         @Query("q") query: String? = "location%3Aindonesia",
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
-    ): List<UserDto>
+    ): UserSearchResponse
 
     @GET("users/{login}")
     suspend fun getUserDetail(
