@@ -10,7 +10,7 @@ data class UserDto(
     @SerializedName("gists_url") val gistsUrl: String?,
     @SerializedName("gravatar_id") val gravatarId: String?,
     @SerializedName("html_url") val htmlUrl: String?,
-    @SerializedName("id") val id: Int?,
+    @SerializedName("id") val id: Int,
     @SerializedName("login") val login: String?,
     @SerializedName("node_id") val nodeId: String?,
     @SerializedName("organizations_url") val organizationsUrl: String?,
