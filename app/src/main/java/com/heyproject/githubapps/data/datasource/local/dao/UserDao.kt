@@ -22,7 +22,7 @@ interface UserDao {
     fun getFavoriteUsers(): Flow<List<UserEntity>>
 
     @Update
-    fun updateFavoriteUser(user: UserEntity)
+    fun updateUser(user: UserEntity)
 
     @Query("DELETE FROM user")
     suspend fun deleteUsers()
