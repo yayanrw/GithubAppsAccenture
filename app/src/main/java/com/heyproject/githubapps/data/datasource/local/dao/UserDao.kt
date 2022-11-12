@@ -1,10 +1,7 @@
 package com.heyproject.githubapps.data.datasource.local.dao
 
 import androidx.paging.PagingSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -20,6 +17,12 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     fun getUsers(): PagingSource<Int, UserEntity>
+
+    @Query("SELECT * FROM user WHERE is_favorite = 1")
+    fun getFavoriteUsers(): Flow<List<UserEntity>>
+
+    @Update
+    fun updateFavoriteUser(user: UserEntity)
 
     @Query("DELETE FROM user")
     suspend fun deleteUsers()
