@@ -68,7 +68,14 @@ class GithubRepositoryImpl(
         }.asFlow()
 
     override fun updateUser(user: User, state: Boolean) {
-        TODO("Not yet implemented")
+        val newUser = User(
+            id = user.id,
+            login = user.login,
+            avatarUrl = user.avatarUrl,
+            type = user.type,
+            isFavorite = state,
+        )
+        localDataSource.updateUser(newUser.toEntity())
     }
 
     override fun insertUser(user: User) {
