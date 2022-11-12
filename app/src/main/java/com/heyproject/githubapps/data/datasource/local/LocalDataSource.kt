@@ -23,12 +23,12 @@ class LocalDataSourceImpl(private val userDao: UserDao, private val userDetailDa
     override suspend fun insertUserDetail(user: UserDetailEntity) =
         userDetailDao.insertUserDetail(user)
 
-    override suspend fun getUserDetail(login: String): Flow<UserDetailEntity> =
+    override fun getUserDetail(login: String): Flow<UserDetailEntity> =
         userDetailDao.getUserDetail(login)
 
     override suspend fun deleteUserDetail() = userDetailDao.deleteUserDetail()
 
-    override suspend fun getFavoriteUsers(): Flow<List<UserEntity>> = userDao.getFavoriteUsers()
+    override fun getFavoriteUsers(): Flow<List<UserEntity>> = userDao.getFavoriteUsers()
 
     override suspend fun updateUser(user: UserEntity) = userDao.updateUser(user)
 }
@@ -38,8 +38,8 @@ interface LocalDataSource {
     suspend fun deleteUsers()
     suspend fun searchUsers(query: String): Flow<List<UserEntity>>
     suspend fun insertUserDetail(user: UserDetailEntity)
-    suspend fun getUserDetail(login: String): Flow<UserDetailEntity>
+    fun getUserDetail(login: String): Flow<UserDetailEntity>
     suspend fun deleteUserDetail()
-    suspend fun getFavoriteUsers(): Flow<List<UserEntity>>
+    fun getFavoriteUsers(): Flow<List<UserEntity>>
     suspend fun updateUser(user: UserEntity)
 }

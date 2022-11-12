@@ -39,7 +39,7 @@ class GithubRepositoryImpl(
         }
     }
 
-    override suspend fun getFavoriteUsers(): Flow<List<User>> {
+    override fun getFavoriteUsers(): Flow<List<User>> {
         return localDataSource.getFavoriteUsers().map { list ->
             list.map { userEntity ->
                 userEntity.toDomain()
