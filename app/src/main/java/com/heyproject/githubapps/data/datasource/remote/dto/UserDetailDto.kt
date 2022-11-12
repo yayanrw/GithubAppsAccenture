@@ -35,5 +35,5 @@ data class UserDetailDto(
     @SerializedName("twitter_username") val twitterUsername: String?,
     @SerializedName("type") val type: String?,
     @SerializedName("updated_at") val updatedAt: String?,
-    @SerializedName("url") val url: String?
+    @SerializedName("url") val url: String
 )

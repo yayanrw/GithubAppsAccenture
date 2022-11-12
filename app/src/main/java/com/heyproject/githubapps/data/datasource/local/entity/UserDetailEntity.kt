@@ -17,6 +17,7 @@ data class UserDetailEntity(
     val bio: String?,
     val blog: String?,
     val company: String?,
+    val url: String,
     @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
     val followers: Int?,
     val following: Int?,
