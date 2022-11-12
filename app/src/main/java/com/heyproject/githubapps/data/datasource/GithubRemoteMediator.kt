@@ -9,6 +9,7 @@ import com.heyproject.githubapps.data.datasource.local.database.GithubDatabase
 import com.heyproject.githubapps.data.datasource.local.entity.RemoteKeysEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import com.heyproject.githubapps.data.datasource.remote.api.GithubService
+import com.heyproject.githubapps.domain.model.toEntity
 
 /**
 Written by Yayan Rahmat Wijaya on 11/11/2022 13:05
@@ -46,8 +47,9 @@ class GithubRemoteMediator(
         }
 
         try {
-            val response = githubService.getUsers(token, page, state.config.pageSize)
-            val endOfPaginationReached = response.isEmpty()
+            val response =
+                githubService.getUsers(token, page = page, perPage = state.config.pageSize)
+            val endOfPaginationReached = response.items.isEmpty()
 
             githubDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
@@ -57,15 +59,15 @@ class GithubRemoteMediator(
 
                 val prevKey = if (page == 1) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = response.map { userDto ->
+                val keys = response.items.map { userDto ->
                     RemoteKeysEntity(id = userDto.id, prevKey = prevKey, nextKey = nextKey)
                 }
 
                 githubDatabase.remoteKeysDao().insertAll(keys)
 
-                response.forEach { userDto ->
-                    val story = userDto.toEntity()
-                    githubDatabase.storyDao().insertStory(story)
+                response.items.forEach { userDto ->
+                    val users = userDto.toEntity()
+                    githubDatabase.userDao().insertUsers(users)
                 }
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)

@@ -13,7 +13,7 @@ Github : https://github.com/yayanrw
 
 class LocalDataSourceImpl(private val userDao: UserDao, private val userDetailDao: UserDetailDao) :
     LocalDataSource {
-    override suspend fun insertUsers(users: List<UserEntity>) = userDao.insertUsers(users)
+    override suspend fun insertUsers(user: UserEntity) = userDao.insertUsers(user)
 
     override suspend fun deleteUsers() = userDao.deleteUsers()
 
@@ -30,7 +30,7 @@ class LocalDataSourceImpl(private val userDao: UserDao, private val userDetailDa
 }
 
 interface LocalDataSource {
-    suspend fun insertUsers(users: List<UserEntity>)
+    suspend fun insertUsers(user: UserEntity)
     suspend fun deleteUsers()
     suspend fun searchUsers(query: String): Flow<List<UserEntity>>
     suspend fun insertUserDetail(user: UserDetailEntity)
