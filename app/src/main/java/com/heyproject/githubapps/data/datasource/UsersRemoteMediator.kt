@@ -17,7 +17,7 @@ Github : https://github.com/yayanrw
  **/
 
 @OptIn(ExperimentalPagingApi::class)
-class GithubRemoteMediator(
+class UsersRemoteMediator(
     private val githubDatabase: GithubDatabase,
     private val githubService: GithubService,
     private val token: String,
@@ -67,7 +67,7 @@ class GithubRemoteMediator(
 
                 response.items.forEach { userDto ->
                     val users = userDto.toEntity()
-                    githubDatabase.userDao().insertUsers(users)
+                    githubDatabase.userDao().insertUser(users)
                 }
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
