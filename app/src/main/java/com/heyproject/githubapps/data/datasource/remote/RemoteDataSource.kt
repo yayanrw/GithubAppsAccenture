@@ -39,11 +39,11 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchUserDetail(userName: String): Flow<DataResource<UserDetailDto>> {
+    override suspend fun fetchUserDetail(login: String): Flow<DataResource<UserDetailDto>> {
         return flow {
             try {
                 val response = githubService.getUserDetail(
-                    BuildConfig.API_KEY, userName,
+                    BuildConfig.API_KEY, login,
                 )
 
                 if (response.id != null) {
@@ -75,12 +75,12 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
     }
 
     override suspend fun fetchUserFollow(
-        userName: String, followType: FollowType
+        login: String, followType: FollowType
     ): Flow<DataResource<List<UserDto>>> {
         return flow {
             try {
                 val response = githubService.getUserFollow(
-                    BuildConfig.API_KEY, userName, followType
+                    BuildConfig.API_KEY, login, followType
                 )
                 if (response.isNotEmpty()) {
                     emit(DataResource.Success(response))
@@ -102,7 +102,7 @@ interface RemoteDataSource {
     ): Flow<DataResource<UserSearchResponse>>
 
     suspend fun fetchUserDetail(
-        userName: String,
+        login: String,
     ): Flow<DataResource<UserDetailDto>>
 
     suspend fun fetchSearchUser(
@@ -110,7 +110,7 @@ interface RemoteDataSource {
     ): Flow<DataResource<UserSearchResponse>>
 
     suspend fun fetchUserFollow(
-        userName: String,
+        login: String,
         followType: FollowType,
     ): Flow<DataResource<List<UserDto>>>
 }
