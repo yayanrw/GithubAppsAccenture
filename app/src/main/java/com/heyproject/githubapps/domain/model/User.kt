@@ -5,5 +5,9 @@ Written by Yayan Rahmat Wijaya on 11/11/2022 13:31
 Github : https://github.com/yayanrw
  **/
 
-class User {
-}
+data class User(
+    val id: Int,
+    val login: String,
+    val avatarUrl: String,
+    val type: String,
+)
