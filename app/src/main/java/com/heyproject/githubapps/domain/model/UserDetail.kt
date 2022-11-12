@@ -16,6 +16,7 @@ data class UserDetail(
     val bio: String,
     val blog: String,
     val company: String,
+    val url: String,
     val avatarUrl: String,
     val followers: Int,
     val following: Int,
@@ -25,11 +26,12 @@ data class UserDetail(
 
 fun UserDetailDto.toDomain(): UserDetail {
     return UserDetail(
-        login = login.orEmpty(),
+        login = login,
         name = name.orEmpty(),
         bio = bio.orEmpty(),
         blog = blog.orEmpty(),
         company = company.orEmpty(),
+        url = url,
         avatarUrl = avatarUrl.orEmpty(),
         followers = followers ?: 0,
         following = following ?: 0,
