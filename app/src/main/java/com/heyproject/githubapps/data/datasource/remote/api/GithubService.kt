@@ -15,11 +15,12 @@ Github : https://github.com/yayanrw
  **/
 
 interface GithubService {
-    @GET("users")
+    @GET("search/users?q=")
     suspend fun getUsers(
         @Header("Authorization") token: String,
-        @Query("since") since: Int,
-        @Query("perPage") perPage: Int,
+        @Query("q") query: String? = "location%3Aindonesia",
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int,
     ): List<UserDto>
 
     @GET("users/{login}")
