@@ -32,6 +32,16 @@ fun UserEntity.toDomain(): User {
         login = login,
         avatarUrl = avatarUrl.orEmpty(),
         type = type.orEmpty(),
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+    )
+}
+
+fun User.toEntity(): UserEntity {
+    return UserEntity(
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl,
+        type = type,
+        isFavorite = isFavorite,
     )
 }
