@@ -57,14 +57,14 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchSearchUser(query: String): Flow<DataResource<UserSearchResponse>> {
+    override suspend fun fetchSearchUser(query: String): Flow<DataResource<List<UserDto>>> {
         return flow {
             try {
                 val response = githubService.getSearchUsers(
                     BuildConfig.API_KEY, query
                 )
                 if (response.totalCount > 0) {
-                    emit(DataResource.Success(response))
+                    emit(DataResource.Success(response.items))
                 } else {
                     emit(DataResource.Empty)
                 }
@@ -107,7 +107,7 @@ interface RemoteDataSource {
 
     suspend fun fetchSearchUser(
         query: String,
-    ): Flow<DataResource<UserSearchResponse>>
+    ): Flow<DataResource<List<UserDto>>>
 
     suspend fun fetchUserFollow(
         login: String,

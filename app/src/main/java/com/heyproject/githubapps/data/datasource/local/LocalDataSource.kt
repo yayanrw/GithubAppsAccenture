@@ -17,7 +17,7 @@ class LocalDataSourceImpl(private val userDao: UserDao, private val userDetailDa
 
     override suspend fun deleteUsers() = userDao.deleteUsers()
 
-    override suspend fun searchUsers(query: String): Flow<List<UserEntity>> =
+    override fun searchUsers(query: String): Flow<List<UserEntity>> =
         userDao.searchUser(query)
 
     override suspend fun insertUserDetail(user: UserDetailEntity) =
@@ -36,7 +36,7 @@ class LocalDataSourceImpl(private val userDao: UserDao, private val userDetailDa
 interface LocalDataSource {
     suspend fun insertUser(user: UserEntity)
     suspend fun deleteUsers()
-    suspend fun searchUsers(query: String): Flow<List<UserEntity>>
+    fun searchUsers(query: String): Flow<List<UserEntity>>
     suspend fun insertUserDetail(user: UserDetailEntity)
     fun getUserDetail(login: String): Flow<UserDetailEntity>
     suspend fun deleteUserDetail()

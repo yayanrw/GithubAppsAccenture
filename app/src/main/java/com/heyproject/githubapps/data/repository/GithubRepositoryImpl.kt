@@ -9,6 +9,7 @@ import com.heyproject.githubapps.data.datasource.PagingDataSource
 import com.heyproject.githubapps.data.datasource.local.LocalDataSource
 import com.heyproject.githubapps.data.datasource.remote.RemoteDataSource
 import com.heyproject.githubapps.data.datasource.remote.dto.UserDetailDto
+import com.heyproject.githubapps.data.datasource.remote.dto.UserDto
 import com.heyproject.githubapps.data.utils.AppExecutors
 import com.heyproject.githubapps.data.utils.DataResource
 import com.heyproject.githubapps.data.utils.NetworkBoundResource
@@ -84,17 +85,37 @@ class GithubRepositoryImpl(
         localDataSource.insertUserDetail(userDetail.toEntity())
     }
 
-    override fun deleteUsers() {
-        TODO("Not yet implemented")
+    override suspend fun deleteUsers() {
+        localDataSource.deleteUsers()
     }
 
-    override fun deleteUserDetail() {
-        TODO("Not yet implemented")
+    override suspend fun deleteUserDetail() {
+        localDataSource.deleteUserDetail()
     }
 
-    override fun searchUsers(query: String): Flow<ViewResource<List<User>>> {
-        TODO("Not yet implemented")
-    }
+    override fun searchUsers(query: String): Flow<ViewResource<List<User>>> =
+        object : NetworkBoundResource<List<User>, List<UserDto>>() {
+            override fun loadFromDB(): Flow<List<User>> {
+                return localDataSource.searchUsers(query).map { list ->
+                    list.map { userEntity ->
+                        userEntity.toDomain()
+                    }
+                }
+            }
+
+            override fun shouldFetch(data: List<User>?): Boolean = true
+
+            override suspend fun createCall(): Flow<DataResource<List<UserDto>>> {
+                return remoteDataSource.fetchSearchUser(query)
+            }
+
+            override suspend fun saveCallResult(data: List<UserDto>) {
+                data.forEach { userDto ->
+                    localDataSource.insertUser(userDto.toEntity())
+                }
+            }
+
+        }.asFlow()
 
     override fun getFollowers(login: String): Flow<ViewResource<List<User>>> {
         TODO("Not yet implemented")
