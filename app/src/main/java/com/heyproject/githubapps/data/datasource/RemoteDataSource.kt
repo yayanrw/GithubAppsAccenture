@@ -18,15 +18,17 @@ Github : https://github.com/yayanrw
  **/
 
 class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDataSource {
-    override suspend fun fetchUsers(since: Int, perPage: Int): Flow<DataResource<List<UserDto>>> {
+    override suspend fun fetchUsers(
+        page: Int, perPage: Int
+    ): Flow<DataResource<UserSearchResponse>> {
         return flow {
             try {
                 val response = githubService.getUsers(
                     BuildConfig.API_KEY,
-                    since,
-                    perPage,
+                    page = page,
+                    perPage = perPage,
                 )
-                if (response.isNotEmpty()) {
+                if (response.totalCount > 0) {
                     emit(DataResource.Success(response))
                 } else {
                     emit(DataResource.Empty)
@@ -95,9 +97,9 @@ class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDat
 
 interface RemoteDataSource {
     suspend fun fetchUsers(
-        since: Int,
+        page: Int,
         perPage: Int,
-    ): Flow<DataResource<List<UserDto>>>
+    ): Flow<DataResource<UserSearchResponse>>
 
     suspend fun fetchUserDetail(
         userName: String,
