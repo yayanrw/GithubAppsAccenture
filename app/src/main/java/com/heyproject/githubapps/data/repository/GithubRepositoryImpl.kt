@@ -19,6 +19,8 @@ import com.heyproject.githubapps.domain.model.toDomain
 import com.heyproject.githubapps.domain.model.toEntity
 import com.heyproject.githubapps.domain.repository.GithubRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 /**
@@ -117,11 +119,27 @@ class GithubRepositoryImpl(
 
         }.asFlow()
 
-    override fun getFollowers(login: String): Flow<ViewResource<List<User>>> {
-        TODO("Not yet implemented")
+    override suspend fun getFollowers(login: String): Flow<ViewResource<List<User>>> {
+        return flow {
+            emit(ViewResource.Loading())
+
+            when (val response = remoteDataSource.fetchSearchUser(login).first()) {
+                is DataResource.Success -> {
+                    emit(ViewResource.Success(response.data.map {
+                        it.toDomain()
+                    }))
+                }
+                is DataResource.Empty -> {
+                    emit(ViewResource.Success(null))
+                }
+                is DataResource.Error -> {
+                    emit(ViewResource.Error(response.errorMessage))
+                }
+            }
+        }
     }
 
-    override fun getFollowings(login: String): Flow<ViewResource<List<User>>> {
+    override suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>> {
         TODO("Not yet implemented")
     }
 }
