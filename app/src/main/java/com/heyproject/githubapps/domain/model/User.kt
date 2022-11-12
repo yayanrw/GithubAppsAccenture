@@ -45,3 +45,13 @@ fun User.toEntity(): UserEntity {
         isFavorite = isFavorite,
     )
 }
+
+fun UserDto.toDomain(): User {
+    return User(
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl.orEmpty(),
+        type = type.orEmpty(),
+        isFavorite = false,
+    )
+}
