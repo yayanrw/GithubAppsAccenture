@@ -12,6 +12,7 @@ Github : https://github.com/yayanrw
 
 @Parcelize
 data class UserDetail(
+    val id: Int,
     val login: String,
     val name: String,
     val bio: String,
@@ -26,6 +27,7 @@ data class UserDetail(
 
 fun UserDetailDto.toDomain(): UserDetail {
     return UserDetail(
+        id = id,
         login = login,
         name = name.orEmpty(),
         bio = bio.orEmpty(),
@@ -41,6 +43,7 @@ fun UserDetailDto.toDomain(): UserDetail {
 
 fun UserDetailEntity.toDomain(): UserDetail {
     return UserDetail(
+        id = id,
         login = login,
         name = name.orEmpty(),
         bio = bio.orEmpty(),
@@ -67,5 +70,21 @@ fun UserDetailDto.toEntity(): UserDetailEntity {
         followers = followers,
         following = following,
         publicRepos = publicRepos,
+    )
+}
+
+fun UserDetail.toEntity(): UserDetailEntity {
+    return UserDetailEntity(
+        id = id,
+        login = login,
+        name = name,
+        bio = bio,
+        blog = blog,
+        company = company,
+        url = url,
+        avatarUrl = avatarUrl,
+        followers = followers,
+        following = following,
+        publicRepos = publicRepos
     )
 }
