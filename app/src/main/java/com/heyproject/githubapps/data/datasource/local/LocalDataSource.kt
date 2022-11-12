@@ -1,4 +1,4 @@
-package com.heyproject.githubapps.data.datasource
+package com.heyproject.githubapps.data.datasource.local
 
 import com.heyproject.githubapps.data.datasource.local.dao.UserDao
 import com.heyproject.githubapps.data.datasource.local.dao.UserDetailDao

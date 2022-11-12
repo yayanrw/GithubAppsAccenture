@@ -1,4 +1,4 @@
-package com.heyproject.githubapps.data.datasource
+package com.heyproject.githubapps.data.datasource.remote
 
 import com.heyproject.githubapps.BuildConfig
 import com.heyproject.githubapps.common.FollowType
