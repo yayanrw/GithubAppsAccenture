@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.heyproject.githubapps.common.FollowType
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.data.datasource.PagingDataSource
 import com.heyproject.githubapps.data.datasource.local.LocalDataSource
@@ -123,7 +124,8 @@ class GithubRepositoryImpl(
         return flow {
             emit(ViewResource.Loading())
 
-            when (val response = remoteDataSource.fetchSearchUser(login).first()) {
+            when (val response =
+                remoteDataSource.fetchUserFollow(login, FollowType.FOLLOWERS).first()) {
                 is DataResource.Success -> {
                     emit(ViewResource.Success(response.data.map {
                         it.toDomain()
@@ -140,6 +142,23 @@ class GithubRepositoryImpl(
     }
 
     override suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>> {
-        TODO("Not yet implemented")
+        return flow {
+            emit(ViewResource.Loading())
+
+            when (val response =
+                remoteDataSource.fetchUserFollow(login, FollowType.FOLLOWING).first()) {
+                is DataResource.Success -> {
+                    emit(ViewResource.Success(response.data.map {
+                        it.toDomain()
+                    }))
+                }
+                is DataResource.Empty -> {
+                    emit(ViewResource.Success(null))
+                }
+                is DataResource.Error -> {
+                    emit(ViewResource.Error(response.errorMessage))
+                }
+            }
+        }
     }
 }
