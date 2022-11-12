@@ -34,7 +34,7 @@ buildscript {
         leakcanary_version = '2.7'
 
         //dependency injection
-        koin_version = '3.2.0'
+        dagger_version = "2.29.1"
 
         //security
         sqlchipper_version = '4.4.0'

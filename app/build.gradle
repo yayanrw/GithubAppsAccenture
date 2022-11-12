@@ -98,4 +98,8 @@ dependencies {
 
     //leakcanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+
+    //dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
