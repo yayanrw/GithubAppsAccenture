@@ -13,10 +13,17 @@ data class User(
     val login: String,
     val avatarUrl: String,
     val type: String,
+    val isFavorite: Boolean,
 )
 
 fun UserDto.toEntity(): UserEntity {
-    return UserEntity(id = id, login = login, avatarUrl = avatarUrl, type = type)
+    return UserEntity(
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl,
+        type = type,
+        isFavorite = false,
+    )
 }
 
 fun UserEntity.toDomain(): User {
@@ -25,5 +32,6 @@ fun UserEntity.toDomain(): User {
         login = login,
         avatarUrl = avatarUrl.orEmpty(),
         type = type.orEmpty(),
+        isFavorite = isFavorite
     )
 }
