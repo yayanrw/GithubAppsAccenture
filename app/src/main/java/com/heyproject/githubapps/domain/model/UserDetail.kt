@@ -1,6 +1,7 @@
 package com.heyproject.githubapps.domain.model
 
 import android.os.Parcelable
+import com.heyproject.githubapps.data.datasource.local.entity.UserDetailEntity
 import com.heyproject.githubapps.data.datasource.remote.dto.UserDetailDto
 import kotlinx.parcelize.Parcelize
 
@@ -21,7 +22,6 @@ data class UserDetail(
     val followers: Int,
     val following: Int,
     val publicRepos: Int,
-    val isFavorite: Boolean
 ) : Parcelable
 
 fun UserDetailDto.toDomain(): UserDetail {
@@ -36,6 +36,36 @@ fun UserDetailDto.toDomain(): UserDetail {
         followers = followers ?: 0,
         following = following ?: 0,
         publicRepos = publicRepos ?: 0,
-        isFavorite = false
+    )
+}
+
+fun UserDetailEntity.toDomain(): UserDetail {
+    return UserDetail(
+        login = login,
+        name = name.orEmpty(),
+        bio = bio.orEmpty(),
+        blog = blog.orEmpty(),
+        company = company.orEmpty(),
+        url = url,
+        avatarUrl = avatarUrl.orEmpty(),
+        followers = followers ?: 0,
+        following = following ?: 0,
+        publicRepos = publicRepos ?: 0,
+    )
+}
+
+fun UserDetailDto.toEntity(): UserDetailEntity {
+    return UserDetailEntity(
+        id = id,
+        login = login,
+        name = name,
+        bio = bio,
+        blog = blog,
+        company = company,
+        url = url,
+        avatarUrl = avatarUrl,
+        followers = followers,
+        following = following,
+        publicRepos = publicRepos,
     )
 }

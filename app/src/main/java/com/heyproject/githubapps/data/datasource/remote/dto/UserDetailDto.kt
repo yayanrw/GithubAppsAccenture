@@ -19,7 +19,7 @@ data class UserDetailDto(
     @SerializedName("gravatar_id") val gravatarId: String?,
     @SerializedName("hireable") val hireable: Any?,
     @SerializedName("html_url") val htmlUrl: String?,
-    @SerializedName("id") val id: Int?,
+    @SerializedName("id") val id: Int,
     @SerializedName("location") val location: String?,
     @SerializedName("login") val login: String,
     @SerializedName("name") val name: String?,

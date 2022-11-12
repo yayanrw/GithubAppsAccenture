@@ -18,3 +18,12 @@ data class User(
 fun UserDto.toEntity(): UserEntity {
     return UserEntity(id = id, login = login, avatarUrl = avatarUrl, type = type)
 }
+
+fun UserEntity.toDomain(): User {
+    return User(
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl.orEmpty(),
+        type = type.orEmpty(),
+    )
+}
