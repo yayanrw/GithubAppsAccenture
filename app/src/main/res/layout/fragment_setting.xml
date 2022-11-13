@@ -7,8 +7,12 @@
     <data>
 
         <variable
-            name="themeSetting"
-            type="Boolean" />
+            name="viewModel"
+            type="com.heyproject.githubapps.presentation.setting.SettingViewModel" />
+
+        <variable
+            name="settingFragment"
+            type="com.heyproject.githubapps.presentation.setting.SettingFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
