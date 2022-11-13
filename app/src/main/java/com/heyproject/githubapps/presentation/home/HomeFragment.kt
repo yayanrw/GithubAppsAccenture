@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.heyproject.githubapps.databinding.FragmentHomeBinding
+import com.heyproject.githubapps.presentation.adapter.LoadingStateAdapter
 import com.heyproject.githubapps.presentation.adapter.UserAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
+    private val viewModel: HomeViewModel by viewModels()
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var userAdapter: UserAdapter
-
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
-    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,15 +37,28 @@ class HomeFragment : Fragment() {
             rvGithubUsers.setHasFixedSize(true)
         }
 
-        setObserver()
         fetchUsers()
     }
 
-    private fun fetchUsers() {
-        TODO("Not yet implemented")
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
-    private fun setObserver() {
-        TODO("Not yet implemented")
+    private fun fetchUsers() {
+        userAdapter = UserAdapter()
+        viewModel.fetchUsers().observe(viewLifecycleOwner) {
+            userAdapter.submitData(lifecycle, it)
+        }
+        userAdapter.onItemClick = { selected ->
+//            val toDetailFragment =
+//                HomeFragmentDirections.actionHomeFragmentToStoryDetailFragment(selected)
+//            findNavController().navigate(toDetailFragment)
+        }
+
+        binding.rvGithubUsers.adapter =
+            userAdapter.withLoadStateFooter(footer = LoadingStateAdapter {
+                userAdapter.retry()
+            })
     }
 }

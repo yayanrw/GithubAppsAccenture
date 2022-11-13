@@ -1,4 +1,4 @@
-package com.heyproject.githubapps.di
+package com.heyproject.githubapps.data.di
 
 import android.content.Context
 import androidx.room.Room
@@ -8,6 +8,9 @@ import com.heyproject.githubapps.data.datasource.local.dao.UserDetailDao
 import com.heyproject.githubapps.data.datasource.local.database.GithubDatabase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
@@ -16,10 +19,11 @@ Github : https://github.com/yayanrw
  **/
 
 @Module
+@InstallIn(SingletonComponent::class)
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): GithubDatabase = Room.databaseBuilder(
+    fun provideDatabase(@ApplicationContext context: Context): GithubDatabase = Room.databaseBuilder(
         context, GithubDatabase::class.java, "GithubApps.db"
     ).fallbackToDestructiveMigration().build()
 

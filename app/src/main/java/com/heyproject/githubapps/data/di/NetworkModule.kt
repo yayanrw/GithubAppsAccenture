@@ -1,8 +1,10 @@
-package com.heyproject.githubapps.di
+package com.heyproject.githubapps.data.di
 
 import com.heyproject.githubapps.data.datasource.remote.api.GithubService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,6 +17,7 @@ Github : https://github.com/yayanrw
  **/
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
