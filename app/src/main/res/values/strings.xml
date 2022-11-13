@@ -22,4 +22,5 @@
     <string name="favorite_user_added">%1$s successfully added to favorites</string>
     <string name="favorite_user_deleted">%1$s successfully removed from favorites</string>
     <string name="go_retry">Retry</string>
+    <string name="reach_maximum_request">You\'re reach the maximum request from Github API. Please try again later.</string>
 </resources>
