@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubApps</string>
+    <string name="app_name">Github Apps</string>
     <string name="user_profile_picture">User Profile Picture</string>
     <string name="detail">Detail</string>
     <string name="_0">0</string>
@@ -16,7 +16,7 @@
     <string name="home">Home</string>
     <string name="favorite_users">Favorite Users</string>
     <string name="setting">Setting</string>
-    <string name="favorite_unfavorite">Favorite/UnFavorite</string>
+    <string name="favorite_un_favorite">Favorite/UnFavorite</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="share">Share this user</string>
     <string name="favorite_user_added">%1$s successfully added to favorites</string>
