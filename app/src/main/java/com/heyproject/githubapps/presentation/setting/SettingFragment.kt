@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.heyproject.githubapps.databinding.FragmentSettingBinding
@@ -20,7 +21,7 @@ class SettingFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSettingBinding.inflate(
             inflater, container, false
         )
@@ -36,11 +37,26 @@ class SettingFragment : Fragment() {
             viewModel = viewModel
             settingFragment = this@SettingFragment
         }
+
+        setObserver()
+        setListener()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setListener() {
+        binding.switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            viewModel.saveThemeSettings(isChecked)
+        }
+    }
+
+    private fun setObserver() {
+        viewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
+            binding.switchTheme.isChecked = isDarkModeActive
+        }
     }
 
     fun goToPickLanguage() {
