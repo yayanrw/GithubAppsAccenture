@@ -23,4 +23,6 @@ interface GithubUseCase {
     fun searchUsers(query: String): Flow<ViewResource<List<User>>>
     suspend fun getFollowers(login: String): Flow<ViewResource<List<User>>>
     suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>>
+    fun getThemeSetting(): Flow<Boolean>
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean)
 }

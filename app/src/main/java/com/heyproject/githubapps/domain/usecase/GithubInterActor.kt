@@ -40,4 +40,9 @@ class GithubInterActor @Inject constructor(private val githubRepository: GithubR
 
     override suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>> =
         githubRepository.getFollowings(login)
+
+    override fun getThemeSetting(): Flow<Boolean> = githubRepository.getThemeSetting()
+
+    override suspend fun saveThemeSetting(isDarkModeActive: Boolean) =
+        githubRepository.saveThemeSetting(isDarkModeActive)
 }
