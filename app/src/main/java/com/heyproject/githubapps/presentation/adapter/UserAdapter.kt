@@ -18,12 +18,9 @@ class UserAdapter : PagingDataAdapter<User, UserAdapter.UserViewHolder>(DiffCall
 
     inner class UserViewHolder(private var binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User?) {
+        fun bind(userData: User?) {
             binding.apply {
-                imgAvatar
-                imgUrl = user?.avatarUrl
-                tvUsername.text = user?.login
-                tvType.text = user?.type
+                user = userData
                 executePendingBindings()
             }
         }
