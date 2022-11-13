@@ -17,7 +17,9 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "API_KEY", "\"Bearer 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\"")
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty('API_KEY')}\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
