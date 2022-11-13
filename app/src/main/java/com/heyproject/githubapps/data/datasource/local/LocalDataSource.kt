@@ -14,22 +14,35 @@ Github : https://github.com/yayanrw
  **/
 
 @Singleton
-class LocalDataSource @Inject constructor(
+class LocalDataSourceImpl @Inject constructor(
     private val userDao: UserDao, private val userDetailDao: UserDetailDao,
-) {
-    suspend fun insertUser(user: UserEntity) = userDao.insertUser(user)
+) : LocalDataSource {
+    override suspend fun insertUser(user: UserEntity) = userDao.insertUser(user)
 
-    suspend fun deleteUsers() = userDao.deleteUsers()
+    override suspend fun deleteUsers() = userDao.deleteUsers()
 
-    fun searchUsers(query: String): Flow<List<UserEntity>> = userDao.searchUser(query)
+    override fun searchUsers(query: String): Flow<List<UserEntity>> = userDao.searchUser(query)
 
-    suspend fun insertUserDetail(user: UserDetailEntity) = userDetailDao.insertUserDetail(user)
+    override suspend fun insertUserDetail(user: UserDetailEntity) =
+        userDetailDao.insertUserDetail(user)
 
-    fun getUserDetail(login: String): Flow<UserDetailEntity> = userDetailDao.getUserDetail(login)
+    override fun getUserDetail(login: String): Flow<UserDetailEntity> =
+        userDetailDao.getUserDetail(login)
 
-    suspend fun deleteUserDetail() = userDetailDao.deleteUserDetail()
+    override suspend fun deleteUserDetail() = userDetailDao.deleteUserDetail()
 
-    fun getFavoriteUsers(): Flow<List<UserEntity>> = userDao.getFavoriteUsers()
+    override fun getFavoriteUsers(): Flow<List<UserEntity>> = userDao.getFavoriteUsers()
 
-    fun updateUser(user: UserEntity) = userDao.updateUser(user)
+    override fun updateUser(user: UserEntity) = userDao.updateUser(user)
+}
+
+interface LocalDataSource {
+    suspend fun insertUser(user: UserEntity)
+    suspend fun deleteUsers()
+    fun searchUsers(query: String): Flow<List<UserEntity>>
+    suspend fun insertUserDetail(user: UserDetailEntity)
+    fun getUserDetail(login: String): Flow<UserDetailEntity>
+    suspend fun deleteUserDetail()
+    fun getFavoriteUsers(): Flow<List<UserEntity>>
+    fun updateUser(user: UserEntity)
 }

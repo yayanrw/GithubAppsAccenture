@@ -15,11 +15,11 @@ Github : https://github.com/yayanrw
  **/
 
 @Singleton
-class PagingDataSource @Inject constructor(
+class PagingDataSourceImpl @Inject constructor(
     private val githubDatabase: GithubDatabase,
     private val githubService: GithubService,
-) {
-    fun getUsers(): LiveData<PagingData<UserEntity>> {
+) : PagingDataSource {
+    override fun getUsers(): LiveData<PagingData<UserEntity>> {
         @OptIn(ExperimentalPagingApi::class) return Pager(config = PagingConfig(pageSize = 10),
             remoteMediator = UsersRemoteMediator(
                 githubDatabase, githubService, BuildConfig.API_KEY
@@ -28,4 +28,8 @@ class PagingDataSource @Inject constructor(
                 githubDatabase.userDao().getUsers()
             }).liveData
     }
+}
+
+interface PagingDataSource {
+    fun getUsers(): LiveData<PagingData<UserEntity>>
 }

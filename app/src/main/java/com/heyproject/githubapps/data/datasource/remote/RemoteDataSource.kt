@@ -20,8 +20,23 @@ Github : https://github.com/yayanrw
  **/
 
 @Singleton
-class RemoteDataSource @Inject constructor(private val githubService: GithubService) {
-    suspend fun fetchUsers(
+class RemoteDataSourceImpl @Inject constructor(private val githubService: GithubService) :
+    RemoteDataSource {
+    override suspend fun fetchUserDetail(login: String): Flow<DataResource<UserDetailDto>> {
+        return flow {
+            try {
+                val response = githubService.getUserDetail(
+                    BuildConfig.API_KEY, login,
+                )
+
+                emit(DataResource.Success(response))
+            } catch (e: Exception) {
+                emit(DataResource.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun fetchUsers(
         page: Int, perPage: Int
     ): Flow<DataResource<UserSearchResponse>> {
         return flow {
@@ -42,21 +57,7 @@ class RemoteDataSource @Inject constructor(private val githubService: GithubServ
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun fetchUserDetail(login: String): Flow<DataResource<UserDetailDto>> {
-        return flow {
-            try {
-                val response = githubService.getUserDetail(
-                    BuildConfig.API_KEY, login,
-                )
-
-                emit(DataResource.Success(response))
-            } catch (e: Exception) {
-                emit(DataResource.Error(e.toString()))
-            }
-        }.flowOn(Dispatchers.IO)
-    }
-
-    suspend fun fetchSearchUser(query: String): Flow<DataResource<List<UserDto>>> {
+    override suspend fun fetchSearchUser(query: String): Flow<DataResource<List<UserDto>>> {
         return flow {
             try {
                 val response = githubService.getSearchUsers(
@@ -73,7 +74,7 @@ class RemoteDataSource @Inject constructor(private val githubService: GithubServ
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun fetchUserFollow(
+    override suspend fun fetchUserFollow(
         login: String, followType: FollowType
     ): Flow<DataResource<List<UserDto>>> {
         return flow {
@@ -91,5 +92,16 @@ class RemoteDataSource @Inject constructor(private val githubService: GithubServ
             }
         }.flowOn(Dispatchers.IO)
     }
+}
 
+interface RemoteDataSource {
+    suspend fun fetchUserDetail(login: String): Flow<DataResource<UserDetailDto>>
+    suspend fun fetchUsers(
+        page: Int, perPage: Int,
+    ): Flow<DataResource<UserSearchResponse>>
+
+    suspend fun fetchSearchUser(query: String): Flow<DataResource<List<UserDto>>>
+    suspend fun fetchUserFollow(
+        login: String, followType: FollowType,
+    ): Flow<DataResource<List<UserDto>>>
 }
