@@ -1,4 +1,4 @@
-package com.heyproject.githubapps.data.di
+package com.heyproject.githubapps.di
 
 import android.content.Context
 import androidx.room.Room

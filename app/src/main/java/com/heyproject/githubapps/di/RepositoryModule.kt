@@ -1,4 +1,4 @@
-package com.heyproject.githubapps.data.di
+package com.heyproject.githubapps.di
 
 import com.heyproject.githubapps.data.repository.GithubRepositoryImpl
 import com.heyproject.githubapps.domain.repository.GithubRepository

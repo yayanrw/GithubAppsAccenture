@@ -1,4 +1,4 @@
-package com.heyproject.githubapps.data.di
+package com.heyproject.githubapps.di
 
 import com.heyproject.githubapps.data.datasource.remote.api.GithubService
 import dagger.Module

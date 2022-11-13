@@ -7,13 +7,15 @@ import com.heyproject.githubapps.domain.model.User
 import com.heyproject.githubapps.domain.model.UserDetail
 import com.heyproject.githubapps.domain.repository.GithubRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 /**
 Written by Yayan Rahmat Wijaya on 11/13/2022 06:08
 Github : https://github.com/yayanrw
  **/
 
-class GithubInterActor(private val githubRepository: GithubRepository) : GithubUseCase {
+class GithubInterActor @Inject constructor(private val githubRepository: GithubRepository) :
+    GithubUseCase {
     override fun getUsers(): LiveData<PagingData<User>> = githubRepository.getUsers()
 
     override fun getFavoriteUsers(): Flow<List<User>> = githubRepository.getFavoriteUsers()
