@@ -6,13 +6,14 @@ import com.heyproject.githubapps.BuildConfig
 import com.heyproject.githubapps.data.datasource.local.database.GithubDatabase
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import com.heyproject.githubapps.data.datasource.remote.api.GithubService
+import javax.inject.Inject
 
 /**
 Written by Yayan Rahmat Wijaya on 11/12/2022 17:27
 Github : https://github.com/yayanrw
  **/
 
-class PagingDataSourceImpl(
+class PagingDataSourceImpl @Inject constructor(
     private val githubDatabase: GithubDatabase,
     private val githubService: GithubService,
 ) : PagingDataSource {
