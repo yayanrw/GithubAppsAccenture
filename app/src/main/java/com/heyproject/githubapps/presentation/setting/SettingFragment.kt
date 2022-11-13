@@ -30,6 +30,7 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setActionBar()
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = viewModel
@@ -44,5 +45,11 @@ class SettingFragment : Fragment() {
 
     fun goToPickLanguage() {
         startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+    }
+
+    private fun setActionBar() {
+        activity?.actionBar?.apply {
+            elevation = 0.0F
+        }
     }
 }
