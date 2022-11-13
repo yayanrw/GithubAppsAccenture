@@ -23,13 +23,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
 Written by Yayan Rahmat Wijaya on 11/12/2022 17:20
 Github : https://github.com/yayanrw
  **/
 
-class GithubRepositoryImpl(
+class GithubRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val pagingDataSource: PagingDataSource,
