@@ -11,13 +11,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 /**
 Written by Yayan Rahmat Wijaya on 11/10/2022 23:31
 Github : https://github.com/yayanrw
  **/
 
-class RemoteDataSourceImpl(private val githubService: GithubService) : RemoteDataSource {
+class RemoteDataSourceImpl @Inject constructor(private val githubService: GithubService) :
+    RemoteDataSource {
     override suspend fun fetchUsers(
         page: Int, perPage: Int
     ): Flow<DataResource<UserSearchResponse>> {
