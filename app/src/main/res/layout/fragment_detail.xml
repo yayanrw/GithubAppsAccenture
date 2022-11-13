@@ -1,246 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".presentation.detail.FragmentDetail">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="userDetail"
+            type="com.heyproject.githubapps.domain.model.UserDetail" />
+
+        <variable
+            name="detailFragment"
+            type="com.heyproject.githubapps.presentation.detail.DetailFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.heyproject.githubapps.presentation.detail.DetailViewModel" />
+    </data>
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/lnr_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/side_margin"
-                android:paddingVertical="@dimen/half_side_margin">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_avatar"
-                    style="@style/AvatarBig"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ImageContrastCheck"
-                    tools:src="@tools:sample/avatars" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/side_margin"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
-                    app:layout_constraintStart_toEndOf="@+id/img_avatar"
-                    app:layout_constraintTop_toTopOf="@+id/img_avatar">
-
-                    <TextView
-                        android:id="@+id/tv_name"
-                        style="@style/TextContent.Title.Big"
-                        android:maxLines="1"
-                        tools:text="@tools:sample/full_names" />
-
-                    <TextView
-                        android:id="@+id/tv_location"
-                        style="@style/TextContent.SubTitle"
-                        tools:text="@tools:sample/cities" />
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/imgb_open_on_github"
-                    style="@style/ImageButton"
-                    android:layout_width="@dimen/large_side_margin"
-                    android:layout_height="@dimen/large_side_margin"
-                    android:contentDescription="@string/view_on_github"
-                    android:src="@drawable/ic_baseline_open_in_new_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/imgb_favorite"
-                    style="@style/ImageButton"
-                    android:layout_width="@dimen/large_side_margin"
-                    android:layout_height="@dimen/large_side_margin"
-                    android:layout_marginEnd="@dimen/side_margin"
-                    android:contentDescription="@string/favorite_un_favorite"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imgb_open_on_github"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/lnr_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/side_margin"
-                android:paddingVertical="@dimen/half_side_margin">
-
-                <TextView
-                    android:id="@+id/tv_bio"
-                    style="@style/TextContent.SubTitle.Light"
-                    android:maxLines="5"
-                    tools:text="@tools:sample/lorem/random" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/half_side_margin">
+                    android:paddingHorizontal="@dimen/side_margin"
+                    android:paddingVertical="@dimen/half_side_margin">
 
-                    <ImageView
-                        android:id="@+id/img_icon_company"
-                        style="@style/IconSmall"
-                        android:contentDescription="@string/company"
-                        android:src="@drawable/ic_baseline_apartment_24"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_avatar"
+                        style="@style/AvatarBig"
+                        app:imageUrl="@{userDetail.avatarUrl}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ImageContrastCheck"
+                        tools:src="@tools:sample/avatars" />
 
-                    <TextView
-                        android:id="@+id/tv_company"
-                        style="@style/TextContent.SubTitle.Light"
-                        android:layout_marginStart="@dimen/half_side_margin"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_icon_company"
-                        app:layout_constraintStart_toEndOf="@+id/img_icon_company"
-                        app:layout_constraintTop_toTopOf="@+id/img_icon_company"
-                        tools:text="@tools:sample/lorem" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/half_side_margin">
-
-                    <ImageView
-                        android:id="@+id/img_icon_link"
-                        style="@style/IconSmall"
-                        android:contentDescription="@string/link_blog"
-                        android:src="@drawable/ic_baseline_link_24"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_blog"
-                        style="@style/TextContent.SubTitle.Light"
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/half_side_margin"
-                        android:textStyle=""
-                        app:layout_constraintBottom_toBottomOf="@+id/img_icon_link"
-                        app:layout_constraintStart_toEndOf="@+id/img_icon_link"
-                        app:layout_constraintTop_toTopOf="@+id/img_icon_link"
-                        tools:text="@tools:sample/lorem" />
+                        android:layout_marginStart="@dimen/side_margin"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
+                        app:layout_constraintStart_toEndOf="@+id/img_avatar"
+                        app:layout_constraintTop_toTopOf="@+id/img_avatar">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            style="@style/TextContent.Title.Big"
+                            android:maxLines="1"
+                            android:text="@{userDetail.name}"
+                            tools:text="@tools:sample/full_names" />
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            style="@style/TextContent.SubTitle"
+                            android:text="@{userDetail.location}"
+                            tools:text="@tools:sample/cities" />
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/imgb_open_on_github"
+                        style="@style/ImageButton"
+                        android:layout_width="@dimen/large_side_margin"
+                        android:layout_height="@dimen/large_side_margin"
+                        android:contentDescription="@string/view_on_github"
+                        android:onClick="@{() -> detailFragment.goToGithub()}"
+                        android:src="@drawable/ic_baseline_open_in_new_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/imgb_favorite"
+                        style="@style/ImageButton"
+                        android:layout_width="@dimen/large_side_margin"
+                        android:layout_height="@dimen/large_side_margin"
+                        android:layout_marginEnd="@dimen/side_margin"
+                        android:contentDescription="@string/favorite_un_favorite"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imgb_open_on_github"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tv_link_github"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/side_margin"
+                    android:paddingVertical="@dimen/half_side_margin">
+
+                    <TextView
+                        android:id="@+id/tv_bio"
+                        style="@style/TextContent.SubTitle.Light"
+                        android:maxLines="5"
+                        tools:text="@tools:sample/lorem/random" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/half_side_margin">
+
+                        <ImageView
+                            android:id="@+id/img_icon_company"
+                            style="@style/IconSmall"
+                            android:contentDescription="@string/company"
+                            android:src="@drawable/ic_baseline_apartment_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_company"
+                            style="@style/TextContent.SubTitle.Light"
+                            android:layout_marginStart="@dimen/half_side_margin"
+                            app:layout_constraintBottom_toBottomOf="@+id/img_icon_company"
+                            app:layout_constraintStart_toEndOf="@+id/img_icon_company"
+                            app:layout_constraintTop_toTopOf="@+id/img_icon_company"
+                            tools:text="@tools:sample/lorem" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/half_side_margin">
+
+                        <ImageView
+                            android:id="@+id/img_icon_link"
+                            style="@style/IconSmall"
+                            android:contentDescription="@string/link_blog"
+                            android:onClick="@{() -> detailFragment.goToGithub()}"
+                            android:src="@drawable/ic_baseline_link_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_blog"
+                            style="@style/TextContent.SubTitle.Light"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/half_side_margin"
+                            android:textStyle=""
+                            app:layout_constraintBottom_toBottomOf="@+id/img_icon_link"
+                            app:layout_constraintStart_toEndOf="@+id/img_icon_link"
+                            app:layout_constraintTop_toTopOf="@+id/img_icon_link"
+                            tools:text="@tools:sample/lorem" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/half_side_margin">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_count_public_repos"
+                            style="@style/TextCenterHorizontal.Title.Big"
+                            android:text="@string/_0" />
+
+                        <TextView
+                            style="@style/TextCenterHorizontal.SubTitle"
+                            android:text="@string/public_repos" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_count_followers"
+                            style="@style/TextCenterHorizontal.Title.Big"
+                            android:text="@string/_0" />
+
+                        <TextView
+                            style="@style/TextCenterHorizontal.SubTitle"
+                            android:text="@string/followers" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_count_following"
+                            style="@style/TextCenterHorizontal.Title.Big"
+                            android:text="@string/_0" />
+
+                        <TextView
+                            style="@style/TextCenterHorizontal.SubTitle"
+                            android:text="@string/following" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    style="@style/TabsCustom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/side_margin"
+                    android:contentDescription="@string/app_name" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/half_side_margin">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_count_public_repos"
-                        style="@style/TextCenterHorizontal.Title.Big"
-                        android:text="@string/_0" />
-
-                    <TextView
-                        style="@style/TextCenterHorizontal.SubTitle"
-                        android:text="@string/public_repos" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_count_followers"
-                        style="@style/TextCenterHorizontal.Title.Big"
-                        android:text="@string/_0" />
-
-                    <TextView
-                        style="@style/TextCenterHorizontal.SubTitle"
-                        android:text="@string/followers" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_count_following"
-                        style="@style/TextCenterHorizontal.Title.Big"
-                        android:text="@string/_0" />
-
-                    <TextView
-                        style="@style/TextCenterHorizontal.SubTitle"
-                        android:text="@string/following" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                style="@style/TabsCustom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/side_margin"
-                android:contentDescription="@string/app_name" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

@@ -1,6 +1,7 @@
 package com.heyproject.githubapps.presentation.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuHost
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
 import com.heyproject.githubapps.R
+import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment(), MenuProvider {
@@ -21,12 +23,41 @@ class DetailFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = viewModel
+            detailFragment = this@DetailFragment
+        }
+
+        setObserver()
+    }
+
+    private fun setObserver() {
+        viewModel.getUserDetail(args.login).observe(viewLifecycleOwner) { userDetailData ->
+            when (userDetailData) {
+                is ViewResource.Loading -> {
+                    showLoading(true)
+                }
+                is ViewResource.Success -> {
+                    showLoading(false)
+                    binding.userDetail = userDetailData.data
+                }
+                is ViewResource.Error -> {
+                    showLoading(false)
+                }
+            }
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -41,6 +72,7 @@ class DetailFragment : Fragment(), MenuProvider {
 
                     val text = """${binding.tvName.text}
 @${args.login}
+
 Work at ${binding.tvCompany.text}
 Blog Site: ${binding.tvBlog.text}
 Public Repos: ${binding.tvCountPublicRepos.text}
@@ -64,6 +96,26 @@ Following: ${binding.tvCountFollowing.text}
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding?.unbind()
         _binding = null
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.lnrContent.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.lnrContent.visibility = View.VISIBLE
+        }
+    }
+
+    fun goToGithub() {
+        val openGithub = Intent(Intent.ACTION_VIEW, Uri.parse("$githubUrl${args.login}"))
+        startActivity(openGithub)
+    }
+
+    companion object {
+        private const val githubUrl = "https://github.com/"
     }
 }

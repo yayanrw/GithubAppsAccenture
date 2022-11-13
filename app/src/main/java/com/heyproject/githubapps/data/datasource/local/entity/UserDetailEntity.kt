@@ -21,5 +21,6 @@ data class UserDetailEntity(
     @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
     val followers: Int?,
     val following: Int?,
-    @ColumnInfo(name = "public_repos") val publicRepos: Int?
+    @ColumnInfo(name = "public_repos") val publicRepos: Int?,
+    val location: String?,
 )
