@@ -24,8 +24,7 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="login"
-            app:argType="string"
-            android:defaultValue="yayanrw" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"

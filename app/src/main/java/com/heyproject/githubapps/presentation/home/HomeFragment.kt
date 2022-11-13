@@ -1,18 +1,21 @@
 package com.heyproject.githubapps.presentation.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
+import com.heyproject.githubapps.R
 import com.heyproject.githubapps.databinding.FragmentHomeBinding
 import com.heyproject.githubapps.presentation.adapter.LoadingStateAdapter
 import com.heyproject.githubapps.presentation.adapter.UserAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MenuProvider {
     private val viewModel: HomeViewModel by viewModels()
 
     private var _binding: FragmentHomeBinding? = null
@@ -24,6 +27,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
 
@@ -45,15 +51,31 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.option_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.setting_action -> {
+                findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+                true
+            }
+            else -> {
+                true
+            }
+        }
+    }
+
     private fun fetchUsers() {
         userAdapter = UserAdapter()
         viewModel.fetchUsers().observe(viewLifecycleOwner) {
             userAdapter.submitData(lifecycle, it)
         }
         userAdapter.onItemClick = { selected ->
-//            val toDetailFragment =
-//                HomeFragmentDirections.actionHomeFragmentToStoryDetailFragment(selected)
-//            findNavController().navigate(toDetailFragment)
+            val toDetailFragment =
+                HomeFragmentDirections.actionHomeFragmentToDetailFragment(selected.login)
+            findNavController().navigate(toDetailFragment)
         }
 
         binding.rvGithubUsers.adapter =
