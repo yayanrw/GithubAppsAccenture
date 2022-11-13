@@ -1,5 +1,6 @@
 package com.heyproject.githubapps.data.repository
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.paging.PagingData
@@ -32,8 +33,7 @@ Github : https://github.com/yayanrw
  **/
 
 @Singleton
-class
-GithubRepositoryImpl @Inject constructor(
+class GithubRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val pagingDataSource: PagingDataSource,
@@ -163,6 +163,18 @@ GithubRepositoryImpl @Inject constructor(
                     emit(ViewResource.Error(response.errorMessage))
                 }
             }
+        }
+    }
+
+    override fun getThemeSetting(): Flow<Boolean> = localDataSource.getThemeSetting()
+
+
+    override suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
+        localDataSource.saveThemeSetting(isDarkModeActive)
+        if (isDarkModeActive) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }
