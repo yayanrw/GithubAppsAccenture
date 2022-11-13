@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.heyproject.githubapps.R
 import com.heyproject.githubapps.databinding.ItemLoadingBinding
 
 /**
@@ -17,8 +18,7 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        loadState: LoadState
+        parent: ViewGroup, loadState: LoadState
     ): LoadingStateViewHolder {
         val binding = ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadingStateViewHolder(binding, retry)
@@ -37,7 +37,12 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
 
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {
-                binding.errorMsg.text = loadState.error.localizedMessage
+                if (loadState.error.localizedMessage.contains("403")) {
+                    binding.errorMsg.text =
+                        binding.root.context.getString(R.string.reach_maximum_request)
+                } else {
+                    binding.errorMsg.text = loadState.error.localizedMessage
+                }
             }
             binding.progressBar.isVisible = loadState is LoadState.Loading
             binding.retryButton.isVisible = loadState is LoadState.Error

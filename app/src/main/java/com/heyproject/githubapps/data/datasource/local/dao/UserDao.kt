@@ -15,7 +15,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity)
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM user ORDER BY created_at asc")
     fun getUsers(): PagingSource<Int, UserEntity>
 
     @Query("SELECT * FROM user WHERE is_favorite = 1")

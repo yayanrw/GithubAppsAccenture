@@ -21,6 +21,8 @@ interface GithubService {
         @Query("q") query: String? = "location:indonesia",
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
+        @Query("sort") sort: String? = "followers",
+        @Query("order") order: String? = "desc"
     ): UserSearchResponse
 
     @GET("users/{login}")
