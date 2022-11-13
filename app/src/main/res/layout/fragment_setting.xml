@@ -54,6 +54,7 @@
             style="@style/TextContent.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> settingFragment.goToPickLanguage()}"
             android:text="@string/pick_language"
             app:layout_constraintBottom_toBottomOf="@+id/textViewLanguage"
             app:layout_constraintEnd_toEndOf="@+id/switch_theme"

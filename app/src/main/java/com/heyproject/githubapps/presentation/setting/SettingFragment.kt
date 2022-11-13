@@ -1,6 +1,8 @@
 package com.heyproject.githubapps.presentation.setting
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,5 +35,14 @@ class SettingFragment : Fragment() {
             viewModel = viewModel
             settingFragment = this@SettingFragment
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    fun goToPickLanguage() {
+        startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
     }
 }
