@@ -8,8 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.activity.DetailActivity">
+        android:layout_height="match_parent">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -33,8 +32,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp">
+                android:paddingHorizontal="@dimen/side_margin"
+                android:paddingVertical="@dimen/half_side_margin">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/img_avatar"
@@ -42,13 +41,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ImageContrastCheck"
                     tools:src="@tools:sample/avatars" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="@dimen/side_margin"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
                     app:layout_constraintStart_toEndOf="@+id/img_avatar"
@@ -69,6 +69,8 @@
                 <ImageButton
                     android:id="@+id/imgb_open_on_github"
                     style="@style/ImageButton"
+                    android:layout_width="@dimen/large_side_margin"
+                    android:layout_height="@dimen/large_side_margin"
                     android:contentDescription="@string/view_on_github"
                     android:src="@drawable/ic_baseline_open_in_new_24"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +80,9 @@
                 <ImageButton
                     android:id="@+id/imgb_favorite"
                     style="@style/ImageButton"
-                    android:layout_marginEnd="16dp"
+                    android:layout_width="@dimen/large_side_margin"
+                    android:layout_height="@dimen/large_side_margin"
+                    android:layout_marginEnd="@dimen/side_margin"
                     android:contentDescription="@string/favorite_un_favorite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imgb_open_on_github"
@@ -93,8 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp">
+                android:paddingHorizontal="@dimen/side_margin"
+                android:paddingVertical="@dimen/half_side_margin">
 
                 <TextView
                     android:id="@+id/tv_bio"
@@ -105,7 +109,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="@dimen/half_side_margin">
 
                     <ImageView
                         android:id="@+id/img_icon_company"
@@ -119,7 +123,7 @@
                     <TextView
                         android:id="@+id/tv_company"
                         style="@style/TextContent.SubTitle.Light"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/half_side_margin"
                         app:layout_constraintBottom_toBottomOf="@+id/img_icon_company"
                         app:layout_constraintStart_toEndOf="@+id/img_icon_company"
                         app:layout_constraintTop_toTopOf="@+id/img_icon_company"
@@ -130,7 +134,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="@dimen/half_side_margin">
 
                     <ImageView
                         android:id="@+id/img_icon_link"
@@ -146,7 +150,7 @@
                         style="@style/TextContent.SubTitle.Light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/half_side_margin"
                         android:textStyle=""
                         app:layout_constraintBottom_toBottomOf="@+id/img_icon_link"
                         app:layout_constraintStart_toEndOf="@+id/img_icon_link"
@@ -168,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:paddingVertical="8dp">
+                android:paddingVertical="@dimen/half_side_margin">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -228,7 +232,8 @@
                 style="@style/TabsCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="@dimen/side_margin"
+                android:contentDescription="@string/app_name" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
