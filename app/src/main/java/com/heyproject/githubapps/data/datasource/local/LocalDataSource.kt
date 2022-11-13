@@ -2,6 +2,7 @@ package com.heyproject.githubapps.data.datasource.local
 
 import com.heyproject.githubapps.data.datasource.local.dao.UserDao
 import com.heyproject.githubapps.data.datasource.local.dao.UserDetailDao
+import com.heyproject.githubapps.data.datasource.local.datastore.SettingDataStore
 import com.heyproject.githubapps.data.datasource.local.entity.UserDetailEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,9 @@ Github : https://github.com/yayanrw
 
 @Singleton
 class LocalDataSourceImpl @Inject constructor(
-    private val userDao: UserDao, private val userDetailDao: UserDetailDao,
+    private val userDao: UserDao,
+    private val userDetailDao: UserDetailDao,
+    private val settingDataStore: SettingDataStore,
 ) : LocalDataSource {
     override suspend fun insertUser(user: UserEntity) = userDao.insertUser(user)
 
@@ -34,6 +37,10 @@ class LocalDataSourceImpl @Inject constructor(
     override fun getFavoriteUsers(): Flow<List<UserEntity>> = userDao.getFavoriteUsers()
 
     override fun updateUser(user: UserEntity) = userDao.updateUser(user)
+    override fun getThemeSetting(): Flow<Boolean> = settingDataStore.getThemeSetting()
+
+    override suspend fun saveThemeSetting(isDarkModeActive: Boolean) =
+        settingDataStore.saveThemeSetting(isDarkModeActive)
 }
 
 interface LocalDataSource {
@@ -45,4 +52,6 @@ interface LocalDataSource {
     suspend fun deleteUserDetail()
     fun getFavoriteUsers(): Flow<List<UserEntity>>
     fun updateUser(user: UserEntity)
+    fun getThemeSetting(): Flow<Boolean>
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean)
 }
