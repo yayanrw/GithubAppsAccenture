@@ -15,10 +15,10 @@ Github : https://github.com/yayanrw
  **/
 
 interface GithubService {
-    @GET("search/users?q=")
+    @GET("search/users")
     suspend fun getUsers(
         @Header("Authorization") token: String,
-        @Query("q") query: String? = "location%3Aindonesia",
+        @Query("q") query: String? = "location:indonesia",
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
     ): UserSearchResponse
