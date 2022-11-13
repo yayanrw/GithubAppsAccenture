@@ -12,15 +12,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
 Written by Yayan Rahmat Wijaya on 11/10/2022 23:31
 Github : https://github.com/yayanrw
  **/
 
-class RemoteDataSourceImpl @Inject constructor(private val githubService: GithubService) :
-    RemoteDataSource {
-    override suspend fun fetchUsers(
+@Singleton
+class RemoteDataSource @Inject constructor(private val githubService: GithubService) {
+    suspend fun fetchUsers(
         page: Int, perPage: Int
     ): Flow<DataResource<UserSearchResponse>> {
         return flow {
@@ -41,25 +42,21 @@ class RemoteDataSourceImpl @Inject constructor(private val githubService: Github
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchUserDetail(login: String): Flow<DataResource<UserDetailDto>> {
+    suspend fun fetchUserDetail(login: String): Flow<DataResource<UserDetailDto>> {
         return flow {
             try {
                 val response = githubService.getUserDetail(
                     BuildConfig.API_KEY, login,
                 )
 
-                if (response.id != null) {
-                    emit(DataResource.Success(response))
-                } else {
-                    emit(DataResource.Empty)
-                }
+                emit(DataResource.Success(response))
             } catch (e: Exception) {
                 emit(DataResource.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchSearchUser(query: String): Flow<DataResource<List<UserDto>>> {
+    suspend fun fetchSearchUser(query: String): Flow<DataResource<List<UserDto>>> {
         return flow {
             try {
                 val response = githubService.getSearchUsers(
@@ -76,7 +73,7 @@ class RemoteDataSourceImpl @Inject constructor(private val githubService: Github
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun fetchUserFollow(
+    suspend fun fetchUserFollow(
         login: String, followType: FollowType
     ): Flow<DataResource<List<UserDto>>> {
         return flow {
@@ -95,24 +92,4 @@ class RemoteDataSourceImpl @Inject constructor(private val githubService: Github
         }.flowOn(Dispatchers.IO)
     }
 
-}
-
-interface RemoteDataSource {
-    suspend fun fetchUsers(
-        page: Int,
-        perPage: Int,
-    ): Flow<DataResource<UserSearchResponse>>
-
-    suspend fun fetchUserDetail(
-        login: String,
-    ): Flow<DataResource<UserDetailDto>>
-
-    suspend fun fetchSearchUser(
-        query: String,
-    ): Flow<DataResource<List<UserDto>>>
-
-    suspend fun fetchUserFollow(
-        login: String,
-        followType: FollowType,
-    ): Flow<DataResource<List<UserDto>>>
 }

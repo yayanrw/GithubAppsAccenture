@@ -10,14 +10,17 @@ import com.heyproject.githubapps.data.datasource.local.entity.RemoteKeysEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import com.heyproject.githubapps.data.datasource.remote.api.GithubService
 import com.heyproject.githubapps.domain.model.toEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
 Written by Yayan Rahmat Wijaya on 11/11/2022 13:05
 Github : https://github.com/yayanrw
  **/
 
+@Singleton
 @OptIn(ExperimentalPagingApi::class)
-class UsersRemoteMediator(
+class UsersRemoteMediator @Inject constructor(
     private val githubDatabase: GithubDatabase,
     private val githubService: GithubService,
     private val token: String,
