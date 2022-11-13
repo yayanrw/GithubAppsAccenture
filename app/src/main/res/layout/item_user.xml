@@ -15,8 +15,7 @@
         android:id="@+id/cl_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/side_margin"
-        android:paddingVertical="@dimen/half_side_margin">
+        android:layout_margin="@dimen/half_side_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avatar"
