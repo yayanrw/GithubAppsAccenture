@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="midnight_blue">#2c3e50</color>
+    <color name="midnight_blue_800">#2c3e50</color>
+    <color name="midnight_blue_500">#57728d</color>
+    <color name="midnight_blue_200">#a7b8ca</color>
 
-    <color name="alizarin">#e74c3c</color>
-    <color name="alizarin_dark">#ae0c13</color>
+    <color name="amethyst_700">#6d3898</color>
+    <color name="amethyst_400">#9c59b6</color>
+    <color name="amethyst_200">#c49ad5</color>
+
+    <color name="silver_700">#61676a</color>
+    <color name="silver_400">#bdc3c7</color>
+    <color name="silver_200">#ecf2f6</color>
+
+    <color name="design_dark_default_color_background" tools:ignore="PrivateResource">#2c3e50</color>
 </resources>
