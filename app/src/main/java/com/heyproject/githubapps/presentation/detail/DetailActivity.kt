@@ -138,11 +138,15 @@ Following: ${binding.tvCountFollowing.text}
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.lnrContent.visibility = View.GONE
+            binding.apply {
+                progressBar.visibility = View.VISIBLE
+                lnrContent.visibility = View.GONE
+            }
         } else {
-            binding.progressBar.visibility = View.GONE
-            binding.lnrContent.visibility = View.VISIBLE
+            binding.apply {
+                progressBar.visibility = View.GONE
+                lnrContent.visibility = View.VISIBLE
+            }
         }
     }
 
