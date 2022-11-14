@@ -32,6 +32,7 @@ buildscript {
         //library
         coil_version = '2.2.0'
         leakcanary_version = '2.7'
+        lottie_version = "3.4.1"
 
         //dependency injection
         hilt_version = '2.44.1'
