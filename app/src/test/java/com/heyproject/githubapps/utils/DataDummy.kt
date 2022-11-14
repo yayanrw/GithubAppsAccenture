@@ -1,6 +1,8 @@
 package com.heyproject.githubapps.utils
 
 import com.heyproject.githubapps.domain.model.User
+import com.heyproject.githubapps.domain.model.UserDetail
+import kotlin.random.Random
 
 /**
 Written by Yayan Rahmat Wijaya on 11/15/2022 04:28
@@ -8,7 +10,7 @@ Github : https://github.com/yayanrw
  **/
 
 object DataDummy {
-    fun generateDummyUsersEntity(): List<User> {
+    fun generateDummyUser(): List<User> {
         val users = arrayListOf<User>()
         for (i in 0..10) {
             val user = User(
@@ -17,5 +19,28 @@ object DataDummy {
             users.add(user)
         }
         return users
+    }
+
+    fun generateDummyUserDetail(): List<UserDetail> {
+        val userDetails = arrayListOf<UserDetail>()
+        for (i in 0..10) {
+            val userDetail = UserDetail(
+                i,
+                "login$i",
+                "name$i",
+                "bio$i",
+                "blog$i",
+                "company$i",
+                "url$i",
+                "avatarUrl$i",
+                Random.nextInt(),
+                Random.nextInt(),
+                Random.nextInt(),
+                "location$i",
+                Random.nextBoolean()
+            )
+            userDetails.add(userDetail)
+        }
+        return userDetails
     }
 }
