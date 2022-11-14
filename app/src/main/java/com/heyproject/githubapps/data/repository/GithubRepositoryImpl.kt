@@ -133,7 +133,8 @@ class GithubRepositoryImpl @Inject constructor(
         return flow {
             emit(ViewResource.Loading())
 
-            when (val response = remoteDataSource.fetchSearchUser(query).first()) {
+            when (val response =
+                remoteDataSource.fetchSearchUser(query).first()) {
                 is DataResource.Success -> {
                     emit(ViewResource.Success(response.data.map { userDto ->
                         userDto.toDomain()

@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.heyproject.githubapps.presentation.search.SearchFragment"
-        android:label="@string/search"
+        android:label="@string/search_github_user"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/navigation_setting"

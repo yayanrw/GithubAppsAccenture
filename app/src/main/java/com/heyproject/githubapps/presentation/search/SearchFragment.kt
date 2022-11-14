@@ -1,7 +1,6 @@
 package com.heyproject.githubapps.presentation.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
@@ -36,6 +35,13 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            rvGithubUsers.apply {
+                adapter = FollowAdapter()
+                setHasFixedSize(true)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -63,7 +69,18 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        Log.d("SEARCH", query!!)
+        if (query != null) {
+            searchUser(query)
+        }
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
+    }
+
+    private fun searchUser(query: String) {
+        followAdapter = FollowAdapter()
         viewModel.searchUser(query).observe(viewLifecycleOwner) { viewResource ->
             when (viewResource) {
                 is ViewResource.Loading -> {
@@ -71,17 +88,17 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
                 }
                 is ViewResource.Success -> {
                     showLoading(false)
+                    followAdapter.submitList(viewResource.data)
+                    binding.apply {
+                        rvGithubUsers.adapter = followAdapter
+                        binding.rvGithubUsers.visibility = View.VISIBLE
+                    }
                 }
                 is ViewResource.Error -> {
                     showLoading(false)
                 }
             }
         }
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return true
     }
 
     private fun showLoading(isLoading: Boolean) {
