@@ -28,7 +28,6 @@
     <string name="pick_language">Pick Language</string>
     <string name="no_data">Empty Data</string>
     <string name="lets_search">Let\'s search GitHub users</string>
-    <string name="title_activity_main">Main Activity</string>
     <string name="title_home">Home</string>
     <string name="no_internet_and_no_cached">No internet connection and no cached data for %1$s.</string>
     <string name="oops_something_went_wrong">Oops! Something went wrong</string>
