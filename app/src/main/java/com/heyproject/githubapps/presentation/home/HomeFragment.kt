@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.heyproject.githubapps.databinding.FragmentHomeBinding
 import com.heyproject.githubapps.presentation.adapter.LoadingStateAdapter
 import com.heyproject.githubapps.presentation.adapter.UserAdapter
+import com.heyproject.githubapps.presentation.setting.SettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
+    private val settingViewModel: SettingViewModel by activityViewModels()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -41,11 +44,18 @@ class HomeFragment : Fragment() {
         }
 
         fetchUsers()
+        setObserver()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setObserver() {
+        settingViewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
+            settingViewModel.saveThemeSettings(isDarkModeActive)
+        }
     }
 
     private fun fetchUsers() {
