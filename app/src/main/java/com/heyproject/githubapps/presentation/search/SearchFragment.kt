@@ -8,6 +8,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.heyproject.githubapps.R
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentSearchBinding
@@ -103,6 +104,12 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
                     showLoading(isLoading = false, isEmpty = true)
                 }
             }
+        }
+
+        followAdapter.onItemClick = { selected ->
+            val toDetailFragment =
+                SearchFragmentDirections.actionNavigationSearchToDetailActivity(selected.login)
+            findNavController().navigate(toDetailFragment)
         }
     }
 
