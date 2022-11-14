@@ -93,12 +93,10 @@
                         style="@style/ImageButton"
                         android:layout_width="@dimen/large_side_margin"
                         android:layout_height="@dimen/large_side_margin"
-                        android:layout_marginStart="137dp"
                         android:contentDescription="@string/favorite_un_favorite"
                         android:onClick="@{() -> detailActivity.setFavorite()}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/linearLayout"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
