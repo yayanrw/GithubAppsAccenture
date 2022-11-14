@@ -114,6 +114,7 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
     }
 
     private fun showLoading(isLoading: Boolean, isEmpty: Boolean) {
+        binding.viewTyping.root.visibility = View.GONE
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.viewEmpty.root.visibility = View.GONE

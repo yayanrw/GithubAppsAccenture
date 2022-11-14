@@ -23,6 +23,13 @@
             android:id="@+id/view_empty"
             layout="@layout/view_empty"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/view_typing"
+            layout="@layout/view_typing"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <androidx.recyclerview.widget.RecyclerView
