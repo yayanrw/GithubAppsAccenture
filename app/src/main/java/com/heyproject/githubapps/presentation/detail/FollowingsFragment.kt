@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.heyproject.githubapps.R
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentFollowingsBinding
 import com.heyproject.githubapps.presentation.adapter.FollowAdapter
@@ -54,6 +55,12 @@ class FollowingsFragment : Fragment() {
                     }
                     is ViewResource.Error -> {
                         setLoading(false)
+                        binding.apply {
+                            progressBar.visibility = View.GONE
+                            rvGithubUsers.visibility = View.GONE
+                            noData.text = getString(R.string.oops_something_went_wrong)
+                            noData.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
