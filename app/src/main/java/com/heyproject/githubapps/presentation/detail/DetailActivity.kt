@@ -29,6 +29,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setActionBar(args.login)
         setViewPager()
 
         binding.apply {
@@ -73,6 +74,20 @@ Following: ${binding.tvCountFollowing.text}
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setActionBar(login: String) {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            title = login
+            elevation = 0.0F
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     private fun setObserver() {
