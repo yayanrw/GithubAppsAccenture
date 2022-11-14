@@ -12,6 +12,7 @@ import com.heyproject.githubapps.R
 import com.heyproject.githubapps.databinding.FragmentHomeBinding
 import com.heyproject.githubapps.presentation.adapter.LoadingStateAdapter
 import com.heyproject.githubapps.presentation.adapter.UserAdapter
+import com.heyproject.githubapps.presentation.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,7 +61,7 @@ class HomeFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.setting_action -> {
-                findNavController().navigate(R.id.action_homeFragment_to_settingFragment)
+                findNavController().navigate(R.id.action_navigation_home_to_detailActivity)
                 true
             }
             else -> {
@@ -76,7 +77,7 @@ class HomeFragment : Fragment(), MenuProvider {
         }
         userAdapter.onItemClick = { selected ->
             val toDetailFragment =
-                HomeFragmentDirections.actionHomeFragmentToDetailActivity(selected.login)
+                HomeFragmentDirections.actionNavigationHomeToDetailActivity(selected.login)
             findNavController().navigate(toDetailFragment)
         }
 
