@@ -20,7 +20,7 @@ class DetailViewModel @Inject constructor(
     private val _userDetail = MutableLiveData<UserDetail>()
     val userDetail: LiveData<UserDetail> = _userDetail
 
-    fun fetchUserDetail(login: String): LiveData<ViewResource<UserDetail>> {
+    fun fetchUserDetail(login: String): LiveData<ViewResource<UserDetail?>> {
         _login.value = login
         return githubUseCase.getUserDetail(login).asLiveData()
     }

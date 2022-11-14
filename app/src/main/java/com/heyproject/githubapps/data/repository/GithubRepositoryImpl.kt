@@ -98,7 +98,7 @@ class GithubRepositoryImpl @Inject constructor(
         localDataSource.insertUserDetail(userDetail.toEntity())
     }
 
-    override fun getUserDetail(login: String): Flow<ViewResource<UserDetail>> {
+    override fun getUserDetail(login: String): Flow<ViewResource<UserDetail?>> {
         return flow {
             emit(ViewResource.Loading())
 
@@ -106,7 +106,7 @@ class GithubRepositoryImpl @Inject constructor(
                 is DataResource.Success -> {
                     localDataSource.insertUserDetail(response.data.toEntity())
                     val localData = localDataSource.getUserDetail(login).first()
-                    emit(ViewResource.Success(localData.toDomain()))
+                    emit(ViewResource.Success(localData?.toDomain()))
                 }
                 is DataResource.Empty -> {
                     emit(ViewResource.Success(null))
@@ -114,7 +114,7 @@ class GithubRepositoryImpl @Inject constructor(
                 is DataResource.Error -> {
                     val localData = localDataSource.getUserDetail(login).first()
 
-                    if (localData.login.isEmpty()) {
+                    if (localData == null) {
                         emit(ViewResource.Error(response.errorMessage))
                     } else {
                         emit(ViewResource.Success(localData.toDomain()))
@@ -127,7 +127,7 @@ class GithubRepositoryImpl @Inject constructor(
     override fun getUserDetailFlat(login: String): Flow<UserDetail> {
         return flow {
             val response = localDataSource.getUserDetail(login).first()
-            emit(response.toDomain())
+            response?.toDomain()?.let { emit(it) }
         }
     }
 

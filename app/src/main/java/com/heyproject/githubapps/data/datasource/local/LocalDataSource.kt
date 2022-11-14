@@ -53,7 +53,7 @@ interface LocalDataSource {
     fun getUser(login: String): Flow<UserEntity>
     fun searchUsers(query: String): Flow<List<UserEntity>>
     suspend fun insertUserDetail(user: UserDetailEntity)
-    fun getUserDetail(login: String): Flow<UserDetailEntity>
+    fun getUserDetail(login: String): Flow<UserDetailEntity?>
     suspend fun deleteUserDetail()
     fun getFavoriteUsers(): Flow<List<UserDetailEntity>>
     fun updateUser(user: UserEntity)

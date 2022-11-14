@@ -16,7 +16,7 @@ interface GithubRepository {
     fun getUsers(): LiveData<PagingData<User>>
     fun getUser(login: String): Flow<User>
     fun getFavoriteUsers(): Flow<List<UserDetail>>
-    fun getUserDetail(login: String): Flow<ViewResource<UserDetail>>
+    fun getUserDetail(login: String): Flow<ViewResource<UserDetail?>>
     fun getUserDetailFlat(login: String): Flow<UserDetail>
     fun updateUser(user: User, state: Boolean)
     fun setUserFavorite(userDetail: UserDetail, newState: Boolean)

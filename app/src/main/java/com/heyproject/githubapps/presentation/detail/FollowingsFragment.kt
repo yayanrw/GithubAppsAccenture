@@ -50,7 +50,7 @@ class FollowingsFragment : Fragment() {
                         followAdapter.submitList(viewResource.data)
                         binding.rvGithubUsers.adapter = followAdapter
 
-                        viewResource.data?.isEmpty()?.let { setVisibility(it) }
+                        viewResource.data?.size?.let { setVisibility(it) }
                     }
                     is ViewResource.Error -> {
                         setLoading(false)
@@ -70,8 +70,8 @@ class FollowingsFragment : Fragment() {
         }
     }
 
-    private fun setVisibility(isEmpty: Boolean) {
-        if (isEmpty) {
+    private fun setVisibility(size: Int) {
+        if (size < 1) {
             binding.apply {
                 progressBar.visibility = View.GONE
                 rvGithubUsers.visibility = View.GONE

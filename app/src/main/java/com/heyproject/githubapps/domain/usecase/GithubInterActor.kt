@@ -21,7 +21,7 @@ class GithubInterActor @Inject constructor(private val githubRepository: GithubR
 
     override fun getFavoriteUsers(): Flow<List<UserDetail>> = githubRepository.getFavoriteUsers()
 
-    override fun getUserDetail(login: String): Flow<ViewResource<UserDetail>> =
+    override fun getUserDetail(login: String): Flow<ViewResource<UserDetail?>> =
         githubRepository.getUserDetail(login)
 
     override fun getUserDetailFlat(login: String): Flow<UserDetail> =
