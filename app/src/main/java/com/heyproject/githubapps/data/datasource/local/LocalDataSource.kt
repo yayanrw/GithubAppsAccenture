@@ -38,24 +38,8 @@ class LocalDataSourceImpl @Inject constructor(
     override fun getFavoriteUsers(): Flow<List<UserDetailEntity>> = userDetailDao.getFavoriteUsers()
 
     override fun updateUser(user: UserEntity) = userDao.updateUser(user)
-    override fun setUserFavorite(userDetailEntity: UserDetailEntity, newState: Boolean) {
-        val newUserDetailEntity = UserDetailEntity(
-            id = userDetailEntity.id,
-            login = userDetailEntity.login,
-            name = userDetailEntity.name,
-            bio = userDetailEntity.bio,
-            blog = userDetailEntity.blog,
-            company = userDetailEntity.company,
-            url = userDetailEntity.url,
-            avatarUrl = userDetailEntity.avatarUrl,
-            followers = userDetailEntity.followers,
-            following = userDetailEntity.following,
-            publicRepos = userDetailEntity.publicRepos,
-            location = userDetailEntity.location,
-            isFavorite = newState
-        )
-        userDetailDao.updateFavoriteUser(newUserDetailEntity)
-    }
+    override fun setUserFavorite(userDetailEntity: UserDetailEntity) =
+        userDetailDao.updateFavoriteUser(userDetailEntity)
 
     override fun getThemeSetting(): Flow<Boolean> = settingDataStore.getThemeSetting()
 
@@ -73,7 +57,7 @@ interface LocalDataSource {
     suspend fun deleteUserDetail()
     fun getFavoriteUsers(): Flow<List<UserDetailEntity>>
     fun updateUser(user: UserEntity)
-    fun setUserFavorite(userDetailEntity: UserDetailEntity, newState: Boolean)
+    fun setUserFavorite(userDetailEntity: UserDetailEntity)
     fun getThemeSetting(): Flow<Boolean>
     suspend fun saveThemeSetting(isDarkModeActive: Boolean)
 }

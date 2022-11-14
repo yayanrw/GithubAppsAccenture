@@ -25,8 +25,8 @@ class GithubInterActor @Inject constructor(private val githubRepository: GithubR
         githubRepository.getUserDetail(login)
 
     override fun updateUser(user: User, state: Boolean) = githubRepository.updateUser(user, state)
-    override fun updateUserDetail(userDetail: UserDetail, newState: Boolean) =
-        githubRepository.updateUserDetail(userDetail, newState)
+    override fun setUserFavorite(userDetail: UserDetail, newState: Boolean) =
+        githubRepository.setUserFavorite(userDetail, newState)
 
     override suspend fun insertUserDetail(userDetail: UserDetail) =
         githubRepository.insertUserDetail(userDetail)

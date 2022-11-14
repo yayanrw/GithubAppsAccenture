@@ -9,6 +9,7 @@ import com.heyproject.githubapps.common.FollowType
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.data.datasource.PagingDataSource
 import com.heyproject.githubapps.data.datasource.local.LocalDataSource
+import com.heyproject.githubapps.data.datasource.local.entity.UserDetailEntity
 import com.heyproject.githubapps.data.datasource.remote.RemoteDataSource
 import com.heyproject.githubapps.data.utils.AppExecutors
 import com.heyproject.githubapps.data.utils.DataResource
@@ -72,9 +73,9 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun updateUserDetail(userDetail: UserDetail, newState: Boolean) {
+    override fun setUserFavorite(userDetail: UserDetail, newState: Boolean) {
         appExecutors.diskIO().execute {
-            val newUserDetail = UserDetail(
+            val newUserDetailEntity = UserDetailEntity(
                 id = userDetail.id,
                 login = userDetail.login,
                 name = userDetail.name,
@@ -89,7 +90,7 @@ class GithubRepositoryImpl @Inject constructor(
                 location = userDetail.location,
                 isFavorite = newState
             )
-            localDataSource.updateUserDetail(newUserDetail.toEntity())
+            localDataSource.setUserFavorite(newUserDetailEntity)
         }
     }
 
