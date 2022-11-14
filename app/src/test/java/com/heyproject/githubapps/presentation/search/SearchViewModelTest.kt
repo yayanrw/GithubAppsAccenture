@@ -69,7 +69,6 @@ class SearchViewModelTest {
         }
     }
 
-
     @Test
     fun `fetchSearchUser Error with Error Result`() = runTest {
         runBlocking {
@@ -86,6 +85,26 @@ class SearchViewModelTest {
             Assert.assertTrue(actual is ViewResource.Error)
             Assert.assertEquals(
                 expected.value?.message, actual.message
+            )
+        }
+    }
+
+    @Test
+    fun `fetchSearchUser Success with Empty Result`() = runTest {
+        runBlocking {
+            val expected = MutableLiveData<ViewResource<List<User>>>()
+            expected.value = ViewResource.Success(null)
+
+            `when`(githubUseCase.searchUsers("29329323")).thenReturn(expected.asFlow())
+
+            val actual = searchViewModel.fetchSearchUser("29329323").getOrAwaitValue()
+
+            Mockito.verify(githubUseCase).searchUsers("29329323")
+
+            Assert.assertNull(actual.data)
+            Assert.assertTrue(actual is ViewResource.Success)
+            Assert.assertEquals(
+                null, (actual as ViewResource.Success).data
             )
         }
     }
