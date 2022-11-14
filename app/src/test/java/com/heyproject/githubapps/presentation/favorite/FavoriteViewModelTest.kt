@@ -9,7 +9,6 @@ import com.heyproject.githubapps.utils.DataDummy
 import com.heyproject.githubapps.utils.MainDispatcherRule
 import com.heyproject.githubapps.utils.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
@@ -48,26 +47,24 @@ class FavoriteViewModelTest {
 
     @Test
     fun `fetchFavoriteUsers return list of UserDetail`() = runTest {
-        runBlocking {
-            val expected = MutableLiveData<List<UserDetail>>()
-            expected.value = dummyResponse
+        val expected = MutableLiveData<List<UserDetail>>()
+        expected.value = dummyResponse
 
-            Mockito.`when`(githubUseCase.getFavoriteUsers()).thenReturn(expected.asFlow())
+        Mockito.`when`(githubUseCase.getFavoriteUsers()).thenReturn(expected.asFlow())
 
-            val actual = favoriteViewModel.fetchFavoriteUsers().getOrAwaitValue()
+        val actual = favoriteViewModel.fetchFavoriteUsers().getOrAwaitValue()
 
-            Mockito.verify(githubUseCase).getFavoriteUsers()
+        Mockito.verify(githubUseCase).getFavoriteUsers()
 
-            assertNotNull(actual)
-            assertEquals(
-                dummyResponse.size, actual.size
-            )
-        }
+        assertNotNull(actual)
+        assertEquals(
+            dummyResponse.size, actual.size
+        )
     }
 
     @Test
     fun `fetchFavoriteUsers return Null Result`() = runTest {
-        runBlocking {
+        {
             val expected = MutableLiveData<List<UserDetail>>()
             expected.value = null
 

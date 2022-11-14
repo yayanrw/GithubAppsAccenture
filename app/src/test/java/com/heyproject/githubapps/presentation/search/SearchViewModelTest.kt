@@ -71,41 +71,37 @@ class SearchViewModelTest {
 
     @Test
     fun `fetchSearchUser Error with Error Result`() = runTest {
-        runBlocking {
-            val expected = MutableLiveData<ViewResource<List<User>>>()
-            expected.value = ViewResource.Error("Error")
+        val expected = MutableLiveData<ViewResource<List<User>>>()
+        expected.value = ViewResource.Error("Error")
 
-            `when`(githubUseCase.searchUsers(dummyQuery)).thenReturn(expected.asFlow())
+        `when`(githubUseCase.searchUsers(dummyQuery)).thenReturn(expected.asFlow())
 
-            val actual = searchViewModel.fetchSearchUser(dummyQuery).getOrAwaitValue()
+        val actual = searchViewModel.fetchSearchUser(dummyQuery).getOrAwaitValue()
 
-            Mockito.verify(githubUseCase).searchUsers(dummyQuery)
+        Mockito.verify(githubUseCase).searchUsers(dummyQuery)
 
-            Assert.assertNotNull(actual)
-            Assert.assertTrue(actual is ViewResource.Error)
-            Assert.assertEquals(
-                expected.value?.message, actual.message
-            )
-        }
+        Assert.assertNotNull(actual)
+        Assert.assertTrue(actual is ViewResource.Error)
+        Assert.assertEquals(
+            expected.value?.message, actual.message
+        )
     }
 
     @Test
     fun `fetchSearchUser Success with Empty Result`() = runTest {
-        runBlocking {
-            val expected = MutableLiveData<ViewResource<List<User>>>()
-            expected.value = ViewResource.Success(null)
+        val expected = MutableLiveData<ViewResource<List<User>>>()
+        expected.value = ViewResource.Success(null)
 
-            `when`(githubUseCase.searchUsers("29329323")).thenReturn(expected.asFlow())
+        `when`(githubUseCase.searchUsers("29329323")).thenReturn(expected.asFlow())
 
-            val actual = searchViewModel.fetchSearchUser("29329323").getOrAwaitValue()
+        val actual = searchViewModel.fetchSearchUser("29329323").getOrAwaitValue()
 
-            Mockito.verify(githubUseCase).searchUsers("29329323")
+        Mockito.verify(githubUseCase).searchUsers("29329323")
 
-            Assert.assertNull(actual.data)
-            Assert.assertTrue(actual is ViewResource.Success)
-            Assert.assertEquals(
-                null, (actual as ViewResource.Success).data
-            )
-        }
+        Assert.assertNull(actual.data)
+        Assert.assertTrue(actual is ViewResource.Success)
+        Assert.assertEquals(
+            null, (actual as ViewResource.Success).data
+        )
     }
 }
