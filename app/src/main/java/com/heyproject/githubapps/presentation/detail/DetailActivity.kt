@@ -109,6 +109,7 @@ Following: ${binding.tvCountFollowing.text}
                 }
                 is ViewResource.Success -> {
                     showLoading(false)
+                    viewModel.fetchUserDetailFlat(args.login)
                     binding.apply {
                         userDetail = userDetailData.data
                         tvCountPublicRepos.text = userDetailData.data?.publicRepos.toString()
@@ -122,7 +123,6 @@ Following: ${binding.tvCountFollowing.text}
             }
         }
 
-        viewModel.fetchUserDetailFlat(args.login)
         viewModel.userDetail.observe(this) { userDetail ->
             if (userDetail.isFavorite) {
                 binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
