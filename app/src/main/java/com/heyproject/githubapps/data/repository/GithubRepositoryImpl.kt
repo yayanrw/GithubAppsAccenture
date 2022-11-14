@@ -46,6 +46,14 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getUser(login: String): Flow<User> {
+        return flow {
+            val response = localDataSource.getUser(login).first()
+            emit(response.toDomain())
+        }
+    }
+
+
     override fun getFavoriteUsers(): Flow<List<User>> {
         return localDataSource.getFavoriteUsers().map { list ->
             list.map { userEntity ->

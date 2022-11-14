@@ -18,6 +18,9 @@ interface UserDao {
     @Query("SELECT * FROM user ORDER BY created_at asc")
     fun getUsers(): PagingSource<Int, UserEntity>
 
+    @Query("SELECT * FROM user WHERE login = :login")
+    fun getUser(login: String): Flow<UserEntity>
+
     @Query("SELECT * FROM user WHERE is_favorite = 1")
     fun getFavoriteUsers(): Flow<List<UserEntity>>
 

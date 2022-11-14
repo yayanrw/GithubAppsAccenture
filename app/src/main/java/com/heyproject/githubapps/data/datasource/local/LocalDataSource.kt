@@ -23,6 +23,7 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun insertUser(user: UserEntity) = userDao.insertUser(user)
 
     override suspend fun deleteUsers() = userDao.deleteUsers()
+    override fun getUser(login: String): Flow<UserEntity> = userDao.getUser(login)
 
     override fun searchUsers(query: String): Flow<List<UserEntity>> = userDao.searchUser(query)
 
@@ -46,6 +47,7 @@ class LocalDataSourceImpl @Inject constructor(
 interface LocalDataSource {
     suspend fun insertUser(user: UserEntity)
     suspend fun deleteUsers()
+    fun getUser(login: String): Flow<UserEntity>
     fun searchUsers(query: String): Flow<List<UserEntity>>
     suspend fun insertUserDetail(user: UserDetailEntity)
     fun getUserDetail(login: String): Flow<UserDetailEntity>

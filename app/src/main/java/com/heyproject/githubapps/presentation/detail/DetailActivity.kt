@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -110,6 +111,17 @@ Following: ${binding.tvCountFollowing.text}
                 }
             }
         }
+
+        viewModel.getUser(args.login)
+        viewModel.user.observe(this) { user ->
+            if (user.isFavorite) {
+                binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                showToast(getString(R.string.favorite_user_added, args.login))
+            } else {
+                binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                showToast(getString(R.string.favorite_user_deleted, args.login))
+            }
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -127,12 +139,20 @@ Following: ${binding.tvCountFollowing.text}
         startActivity(openGithub)
     }
 
+    fun setFavorite() {
+
+    }
+
     private fun setViewPager() {
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+    }
+
+    private fun showToast(messages: String) {
+        Toast.makeText(this@DetailActivity, messages, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

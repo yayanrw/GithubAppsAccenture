@@ -17,6 +17,7 @@ Github : https://github.com/yayanrw
 class GithubInterActor @Inject constructor(private val githubRepository: GithubRepository) :
     GithubUseCase {
     override fun getUsers(): LiveData<PagingData<User>> = githubRepository.getUsers()
+    override fun getUser(login: String): Flow<User> = githubRepository.getUser(login)
 
     override fun getFavoriteUsers(): Flow<List<User>> = githubRepository.getFavoriteUsers()
 
