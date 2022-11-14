@@ -77,7 +77,7 @@ class FavoriteViewModelTest {
 
             Mockito.verify(githubUseCase).getFavoriteUsers()
 
-            assertNull(actual)s
+            assertNull(actual)
         }
     }
 }
