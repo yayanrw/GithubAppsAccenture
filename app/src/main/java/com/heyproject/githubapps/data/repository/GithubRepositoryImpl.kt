@@ -108,14 +108,16 @@ class GithubRepositoryImpl @Inject constructor(
                     emit(ViewResource.Success(localData.toDomain()))
                 }
                 is DataResource.Empty -> {
-                    val localData = localDataSource.getUserDetail(login).first()
-
-                    emit(ViewResource.Success(localData.toDomain()))
+                    emit(ViewResource.Success(null))
                 }
                 is DataResource.Error -> {
                     val localData = localDataSource.getUserDetail(login).first()
 
-                    emit(ViewResource.Success(localData.toDomain()))
+                    if (localData.login.isEmpty()) {
+                        emit(ViewResource.Error(response.errorMessage))
+                    } else {
+                        emit(ViewResource.Success(localData.toDomain()))
+                    }
                 }
             }
         }
@@ -133,18 +135,30 @@ class GithubRepositoryImpl @Inject constructor(
         return flow {
             emit(ViewResource.Loading())
 
-            when (val response =
-                remoteDataSource.fetchSearchUser(query).first()) {
+            when (val response = remoteDataSource.fetchSearchUser(query).first()) {
                 is DataResource.Success -> {
-                    emit(ViewResource.Success(response.data.map { userDto ->
-                        userDto.toDomain()
+                    response.data.forEach { userDto ->
+                        localDataSource.insertUser(userDto.toEntity())
+                    }
+                    val localData = localDataSource.searchUsers(query).first()
+
+                    emit(ViewResource.Success(localData.map { userEntity ->
+                        userEntity.toDomain()
                     }))
                 }
                 is DataResource.Empty -> {
                     emit(ViewResource.Success(null))
                 }
                 is DataResource.Error -> {
-                    emit(ViewResource.Error(response.errorMessage))
+                    val localData = localDataSource.searchUsers(query).first()
+
+                    if (localData.isEmpty()) {
+                        emit(ViewResource.Error(response.errorMessage))
+                    } else {
+                        emit(ViewResource.Success(localData.map { userEntity ->
+                            userEntity.toDomain()
+                        }))
+                    }
                 }
             }
         }
