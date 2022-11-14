@@ -1,6 +1,5 @@
 package com.heyproject.githubapps.data.datasource.remote
 
-import android.util.Log
 import com.heyproject.githubapps.BuildConfig
 import com.heyproject.githubapps.data.datasource.remote.api.GithubService
 import com.heyproject.githubapps.data.datasource.remote.dto.UserDetailDto
@@ -28,8 +27,6 @@ class RemoteDataSourceImpl @Inject constructor(private val githubService: Github
                 val response = githubService.getUserDetail(
                     BuildConfig.API_KEY, login,
                 )
-
-                Log.d("TES", response.toString())
 
                 if (response.login.isNotEmpty()) {
                     emit(DataResource.Success(response))
@@ -82,8 +79,7 @@ class RemoteDataSourceImpl @Inject constructor(private val githubService: Github
     }
 
     override suspend fun fetchUserFollow(
-        login: String,
-        followType: String
+        login: String, followType: String
     ): Flow<DataResource<List<UserDto>>> {
         return flow {
             try {

@@ -1,6 +1,7 @@
 package com.heyproject.githubapps.presentation.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import com.heyproject.githubapps.R
+import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentSearchBinding
 import com.heyproject.githubapps.presentation.adapter.FollowAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,12 +26,16 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
@@ -42,12 +48,12 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
         searchView.queryHint = getString(R.string.search)
+        searchView.setOnQueryTextListener(this)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.action_search -> {
-
                 true
             }
             else -> {
@@ -57,10 +63,33 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        Log.d("SEARCH", query!!)
+        viewModel.searchUser(query).observe(viewLifecycleOwner) { viewResource ->
+            when (viewResource) {
+                is ViewResource.Loading -> {
+                    showLoading(true)
+                }
+                is ViewResource.Success -> {
+                    showLoading(false)
+                }
+                is ViewResource.Error -> {
+                    showLoading(false)
+                }
+            }
+        }
         return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.viewEmpty.root.visibility = View.GONE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }
