@@ -17,7 +17,7 @@ data class UserEntity(
 )
 
 @Entity
-data class UserAndUserDetail(
+data class UserAndUserDetailEntity(
     @Embedded val userEntity: UserEntity,
 
     @Relation(

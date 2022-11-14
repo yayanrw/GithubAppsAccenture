@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.heyproject.githubapps.databinding.FragmentFavoriteBinding
+import com.heyproject.githubapps.presentation.adapter.FollowAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,6 +16,9 @@ class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var followAdapter: FollowAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,6 +29,26 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            rvGithubUsers.apply {
+                adapter = FollowAdapter()
+                setHasFixedSize(true)
+            }
+        }
+
+        setObserver()
+    }
+
+    private fun setObserver() {
+        followAdapter = FollowAdapter()
+        viewModel.fetchFavoriteUsers().observe(viewLifecycleOwner) { list ->
+            followAdapter.submitList(list)
+            binding.apply {
+                rvGithubUsers.adapter = followAdapter
+                binding.rvGithubUsers.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onDestroyView() {
