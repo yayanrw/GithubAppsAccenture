@@ -78,11 +78,15 @@ class FollowersFragment : Fragment() {
 
     private fun setLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.rvGithubUsers.visibility = View.GONE
+            binding.apply {
+                progressBar.visibility = View.VISIBLE
+                rvGithubUsers.visibility = View.GONE
+            }
         } else {
-            binding.progressBar.visibility = View.GONE
-            binding.rvGithubUsers.visibility = View.VISIBLE
+            binding.apply {
+                progressBar.visibility = View.GONE
+                rvGithubUsers.visibility = View.VISIBLE
+            }
         }
     }
 }
