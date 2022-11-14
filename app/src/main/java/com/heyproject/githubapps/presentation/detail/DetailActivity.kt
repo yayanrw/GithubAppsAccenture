@@ -51,6 +51,10 @@ class DetailActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.action_open_browser -> {
+                val openGithub = Intent(Intent.ACTION_VIEW, Uri.parse("$githubUrl${args.login}"))
+                startActivity(openGithub)
+            }
             R.id.action_share -> {
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
@@ -129,11 +133,6 @@ Following: ${binding.tvCountFollowing.text}
             binding.progressBar.visibility = View.GONE
             binding.lnrContent.visibility = View.VISIBLE
         }
-    }
-
-    fun goToGithub() {
-        val openGithub = Intent(Intent.ACTION_VIEW, Uri.parse("$githubUrl${args.login}"))
-        startActivity(openGithub)
     }
 
     fun setFavorite() {
