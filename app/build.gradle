@@ -96,7 +96,6 @@ dependencies {
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$coroutines_lifecycle_version"
 
     //security
     implementation "net.zetetic:android-database-sqlcipher:$sqlchipper_version"
@@ -126,6 +125,14 @@ dependencies {
 
     //datastore
     implementation("androidx.datastore:datastore-preferences:1.1.0-alpha01")
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation 'org.mockito:mockito-inline:3.12.4'
+
+    // SpecialTesting
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 }
 
 kapt {
