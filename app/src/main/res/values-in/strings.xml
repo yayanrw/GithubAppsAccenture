@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Github Apps</string>
+    <string name="user_profile_picture">Foto Profil User</string>
+    <string name="detail">Detail</string>
+    <string name="_0">0</string>
+    <string name="public_repos">Repo Publik</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="search">Cari…</string>
+    <string name="search_github_user">Pencarian</string>
+    <string name="no_bio">Tidak ada bio</string>
+    <string name="no_company">Perusahaan tidak di set</string>
+    <string name="no_blog">Blog tidak di set</string>
+    <string name="view_on_github">Lihat di GitHub</string>
+    <string name="link_blog">Halaman Blog</string>
+    <string name="company">Perusahaan</string>
+    <string name="home">Beranda</string>
+    <string name="favorite_users">Pengguna Favorit</string>
+    <string name="setting">Pengaturan</string>
+    <string name="favorite_un_favorite">Favorit/Tidak Favorit</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="share">Sebarkan pengguna ini</string>
+    <string name="favorite_user_added">%1$s berhasil menambahkan ke daftar favorit</string>
+    <string name="favorite_user_deleted">%1$s berhasil menghapus dari daftar favorit</string>
+    <string name="go_retry">Ulangi</string>
+    <string name="reach_maximum_request">Kamu telah melebihi jumlah maksimal permintaan ke GitHub API. Coba lagi nanti.</string>
+    <string name="language">Bahasa</string>
+    <string name="pick_language">Pilih Bahasa</string>
+    <string name="no_data">Data Kosong</string>
+    <string name="lets_search">Ayo cari pengguna GitHub</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="title_home">Beranda</string>
+    <string name="no_internet_and_no_cached">Tidak ada koneksi internet dan tidak ada data cache untuk user %1$s.</string>
+    <string name="oops_something_went_wrong">Waduh! Telah terjadi kesalahan</string>
+</resources>

@@ -23,13 +23,13 @@
     <string name="favorite_user_added">%1$s successfully added to favorites</string>
     <string name="favorite_user_deleted">%1$s successfully removed from favorites</string>
     <string name="go_retry">Retry</string>
-    <string name="reach_maximum_request">You\'re reach the maximum request from Github API. Please try again later.</string>
+    <string name="reach_maximum_request">You\'re reach the maximum request from GitHub API. Please try again later.</string>
     <string name="language">Language</string>
     <string name="pick_language">Pick Language</string>
-    <string name="no_data">Empty data</string>
-    <string name="lets_search">Let\'s search github users</string>
+    <string name="no_data">Empty Data</string>
+    <string name="lets_search">Let\'s search GitHub users</string>
     <string name="title_activity_main">Main Activity</string>
     <string name="title_home">Home</string>
     <string name="no_internet_and_no_cached">No internet connection and no cached data for %1$s.</string>
-    <string name="oops_something_went_wrong">Oops something went wrong</string>
+    <string name="oops_something_went_wrong">Oops! Something went wrong</string>
 </resources>
