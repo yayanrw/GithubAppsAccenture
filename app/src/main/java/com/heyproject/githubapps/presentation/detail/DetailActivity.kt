@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.heyproject.githubapps.R
 import com.heyproject.githubapps.common.ViewResource
@@ -149,11 +150,21 @@ Following: ${binding.tvCountFollowing.text}
         viewModel.userDetail.value?.let { userDetail ->
             viewModel.setFavorite(userDetail, !userDetail.isFavorite)
             viewModel.fetchUserDetailFlat(args.login)
+
+            if (userDetail.isFavorite) {
+                showSnackBar(getString(R.string.favorite_user_deleted, args.login))
+            } else {
+                showSnackBar(getString(R.string.favorite_user_added, args.login))
+            }
         }
     }
 
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showSnackBar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setViewPager() {
