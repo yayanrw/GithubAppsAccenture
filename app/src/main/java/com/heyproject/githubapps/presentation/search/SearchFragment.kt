@@ -116,18 +116,24 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
     private fun showLoading(isLoading: Boolean, isEmpty: Boolean) {
         binding.viewTyping.root.visibility = View.GONE
         if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.viewEmpty.root.visibility = View.GONE
-            binding.rvGithubUsers.visibility = View.GONE
+            binding.apply {
+                progressBar.visibility = View.VISIBLE
+                viewEmpty.root.visibility = View.GONE
+                rvGithubUsers.visibility = View.GONE
+            }
         } else {
             if (isEmpty) {
-                binding.progressBar.visibility = View.GONE
-                binding.viewEmpty.root.visibility = View.VISIBLE
-                binding.rvGithubUsers.visibility = View.GONE
+                binding.apply {
+                    progressBar.visibility = View.GONE
+                    viewEmpty.root.visibility = View.VISIBLE
+                    rvGithubUsers.visibility = View.GONE
+                }
             } else {
-                binding.progressBar.visibility = View.GONE
-                binding.viewEmpty.root.visibility = View.GONE
-                binding.rvGithubUsers.visibility = View.VISIBLE
+                binding.apply {
+                    progressBar.visibility = View.GONE
+                    viewEmpty.root.visibility = View.GONE
+                    rvGithubUsers.visibility = View.VISIBLE
+                }
             }
         }
     }

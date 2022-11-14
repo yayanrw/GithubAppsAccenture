@@ -38,6 +38,11 @@ class FollowersFragment : Fragment() {
         fetchFollowers()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun fetchFollowers() {
         followAdapter = FollowAdapter()
         viewModel.login.observe(viewLifecycleOwner) { login ->

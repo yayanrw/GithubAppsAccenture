@@ -32,4 +32,6 @@
     <string name="title_home">Home</string>
     <string name="no_internet_and_no_cached">No internet connection and no cached data for %1$s.</string>
     <string name="oops_something_went_wrong">Oops! Something went wrong</string>
+    <string name="dark_mode_active">Dark mode is activated</string>
+    <string name="dark_mode_deactive">Dark mode is deactivated</string>
 </resources>

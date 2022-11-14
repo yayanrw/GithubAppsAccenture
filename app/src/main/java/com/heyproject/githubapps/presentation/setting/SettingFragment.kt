@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
+import com.heyproject.githubapps.R
 import com.heyproject.githubapps.databinding.FragmentSettingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,6 +58,11 @@ class SettingFragment : Fragment() {
     private fun setObserver() {
         viewModel.fetchThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
             binding.switchTheme.isChecked = isDarkModeActive
+            if (isDarkModeActive) {
+                showSnackBar(getString(R.string.dark_mode_active))
+            } else {
+                showSnackBar(getString(R.string.dark_mode_deactive))
+            }
         }
     }
 
@@ -67,5 +74,9 @@ class SettingFragment : Fragment() {
         activity?.actionBar?.apply {
             elevation = 0.0F
         }
+    }
+
+    private fun showSnackBar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT).show()
     }
 }
