@@ -24,5 +24,5 @@ interface UserDetailDao {
     suspend fun deleteUserDetail()
 
     @Update
-    fun updateUser(userDetailEntity: UserDetailEntity)
+    fun updateFavoriteUser(userDetailEntity: UserDetailEntity)
 }
