@@ -27,6 +27,7 @@
     <string name="language">Language</string>
     <string name="pick_language">Pick Language</string>
     <string name="no_data">Empty data</string>
+    <string name="lets_search">Let\'s search github users</string>
     <string name="title_activity_main">Main Activity</string>
     <string name="title_home">Home</string>
 </resources>
