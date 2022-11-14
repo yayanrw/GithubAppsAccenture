@@ -64,17 +64,15 @@ class FavoriteViewModelTest {
 
     @Test
     fun `fetchFavoriteUsers return Null Result`() = runTest {
-        {
-            val expected = MutableLiveData<List<UserDetail>>()
-            expected.value = null
+        val expected = MutableLiveData<List<UserDetail>>()
+        expected.value = null
 
-            Mockito.`when`(githubUseCase.getFavoriteUsers()).thenReturn(expected.asFlow())
+        Mockito.`when`(githubUseCase.getFavoriteUsers()).thenReturn(expected.asFlow())
 
-            val actual = favoriteViewModel.fetchFavoriteUsers().getOrAwaitValue()
+        val actual = favoriteViewModel.fetchFavoriteUsers().getOrAwaitValue()
 
-            Mockito.verify(githubUseCase).getFavoriteUsers()
+        Mockito.verify(githubUseCase).getFavoriteUsers()
 
-            assertNull(actual)
-        }
+        assertNull(actual)
     }
 }
