@@ -84,29 +84,44 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
         viewModel.searchUser(query).observe(viewLifecycleOwner) { viewResource ->
             when (viewResource) {
                 is ViewResource.Loading -> {
-                    showLoading(true)
+                    showLoading(isLoading = true, isEmpty = true)
                 }
                 is ViewResource.Success -> {
-                    showLoading(false)
                     followAdapter.submitList(viewResource.data)
                     binding.apply {
                         rvGithubUsers.adapter = followAdapter
                         binding.rvGithubUsers.visibility = View.VISIBLE
                     }
+
+                    if (viewResource.data.isNullOrEmpty()) {
+                        showLoading(isLoading = false, isEmpty = true)
+                    } else {
+                        showLoading(isLoading = false, isEmpty = false)
+                    }
                 }
                 is ViewResource.Error -> {
-                    showLoading(false)
+                    showLoading(isLoading = false, isEmpty = true)
                 }
             }
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
+    private fun showLoading(isLoading: Boolean, isEmpty: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.viewEmpty.root.visibility = View.GONE
+            binding.rvGithubUsers.visibility = View.GONE
         } else {
-            binding.progressBar.visibility = View.GONE
+            if (isEmpty) {
+                binding.progressBar.visibility = View.GONE
+                binding.viewEmpty.root.visibility = View.VISIBLE
+                binding.rvGithubUsers.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.viewEmpty.root.visibility = View.GONE
+                binding.rvGithubUsers.visibility = View.VISIBLE
+            }
         }
     }
+
 }
