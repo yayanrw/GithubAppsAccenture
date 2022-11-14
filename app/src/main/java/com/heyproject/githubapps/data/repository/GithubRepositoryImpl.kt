@@ -20,7 +20,6 @@ import com.heyproject.githubapps.domain.repository.GithubRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -52,11 +51,12 @@ class GithubRepositoryImpl @Inject constructor(
     }
 
 
-    override fun getFavoriteUsers(): Flow<List<User>> {
+    override fun getFavoriteUsers(): Flow<List<UserDetail>> {
         return flow {
             val response = localDataSource.getFavoriteUsers().first()
-
-//            emit(response.)
+            emit(response.map { userDetailEntity ->
+                userDetailEntity.toDomain()
+            })
         }
     }
 

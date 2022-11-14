@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.heyproject.githubapps.databinding.FragmentFavoriteBinding
-import com.heyproject.githubapps.presentation.adapter.FollowAdapter
+import com.heyproject.githubapps.presentation.adapter.UserDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +18,7 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var followAdapter: FollowAdapter
+    private lateinit var userDetailAdapter: UserDetailAdapter
 
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class FavoriteFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             rvGithubUsers.apply {
-                adapter = FollowAdapter()
+                adapter = UserDetailAdapter()
                 setHasFixedSize(true)
             }
         }
@@ -41,13 +42,29 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setObserver() {
-        followAdapter = FollowAdapter()
+        userDetailAdapter = UserDetailAdapter()
         viewModel.fetchFavoriteUsers().observe(viewLifecycleOwner) { list ->
-            followAdapter.submitList(list)
+            userDetailAdapter.submitList(list)
             binding.apply {
-                rvGithubUsers.adapter = followAdapter
+                rvGithubUsers.adapter = userDetailAdapter
                 binding.rvGithubUsers.visibility = View.VISIBLE
             }
+            setVisibility(list.isEmpty())
+        }
+        userDetailAdapter.onItemClick = { selected ->
+            val toDetailFragment =
+                FavoriteFragmentDirections.actionNavigationFavoriteToDetailActivity(selected.login)
+            findNavController().navigate(toDetailFragment)
+        }
+    }
+
+    private fun setVisibility(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.viewEmpty.root.visibility = View.VISIBLE
+            binding.rvGithubUsers.visibility = View.GONE
+        } else {
+            binding.viewEmpty.root.visibility = View.GONE
+            binding.rvGithubUsers.visibility = View.VISIBLE
         }
     }
 
@@ -55,4 +72,6 @@ class FavoriteFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

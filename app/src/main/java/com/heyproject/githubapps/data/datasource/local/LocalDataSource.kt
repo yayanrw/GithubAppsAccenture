@@ -3,7 +3,6 @@ package com.heyproject.githubapps.data.datasource.local
 import com.heyproject.githubapps.data.datasource.local.dao.UserDao
 import com.heyproject.githubapps.data.datasource.local.dao.UserDetailDao
 import com.heyproject.githubapps.data.datasource.local.datastore.SettingDataStore
-import com.heyproject.githubapps.data.datasource.local.entity.UserDetailAndUserEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserDetailEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
@@ -36,8 +35,7 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun deleteUserDetail() = userDetailDao.deleteUserDetail()
 
-    override fun getFavoriteUsers(): Flow<List<UserDetailAndUserEntity>> =
-        userDetailDao.getFavoriteUsers()
+    override fun getFavoriteUsers(): Flow<List<UserDetailEntity>> = userDetailDao.getFavoriteUsers()
 
     override fun updateUser(user: UserEntity) = userDao.updateUser(user)
     override fun updateUserDetail(userDetailEntity: UserDetailEntity) =
@@ -57,7 +55,7 @@ interface LocalDataSource {
     suspend fun insertUserDetail(user: UserDetailEntity)
     fun getUserDetail(login: String): Flow<UserDetailEntity>
     suspend fun deleteUserDetail()
-    fun getFavoriteUsers(): Flow<List<UserDetailAndUserEntity>>
+    fun getFavoriteUsers(): Flow<List<UserDetailEntity>>
     fun updateUser(user: UserEntity)
     fun updateUserDetail(userDetailEntity: UserDetailEntity)
     fun getThemeSetting(): Flow<Boolean>

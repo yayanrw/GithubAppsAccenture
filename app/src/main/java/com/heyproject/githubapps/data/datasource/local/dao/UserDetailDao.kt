@@ -1,7 +1,6 @@
 package com.heyproject.githubapps.data.datasource.local.dao
 
 import androidx.room.*
-import com.heyproject.githubapps.data.datasource.local.entity.UserDetailAndUserEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserDetailEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -18,9 +17,8 @@ interface UserDetailDao {
     @Query("SELECT * FROM user_detail WHERE login = :login")
     fun getUserDetail(login: String): Flow<UserDetailEntity>
 
-    @Transaction
     @Query("SELECT * FROM user_detail WHERE is_favorite = 1")
-    fun getFavoriteUsers(): Flow<List<UserDetailAndUserEntity>>
+    fun getFavoriteUsers(): Flow<List<UserDetailEntity>>
 
     @Query("DELETE FROM user_detail")
     suspend fun deleteUserDetail()

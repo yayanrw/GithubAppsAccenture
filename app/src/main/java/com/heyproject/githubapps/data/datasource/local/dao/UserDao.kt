@@ -2,7 +2,6 @@ package com.heyproject.githubapps.data.datasource.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.heyproject.githubapps.data.datasource.local.entity.UserDetailAndUserEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
