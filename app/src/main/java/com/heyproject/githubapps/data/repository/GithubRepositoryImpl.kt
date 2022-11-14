@@ -77,7 +77,9 @@ class GithubRepositoryImpl @Inject constructor(
 
             when (val response = remoteDataSource.fetchUserDetail(login).first()) {
                 is DataResource.Success -> {
-                    emit(ViewResource.Success(response.data.toDomain()))
+                    localDataSource.insertUserDetail(response.data.toEntity())
+                    val localData = localDataSource.getUserDetail(login).first()
+                    emit(ViewResource.Success(localData.toDomain()))
                 }
                 is DataResource.Empty -> {
                     emit(ViewResource.Success(null))
