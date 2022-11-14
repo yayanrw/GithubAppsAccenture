@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import com.heyproject.githubapps.common.ViewResource
+import com.heyproject.githubapps.domain.model.User
 import com.heyproject.githubapps.domain.model.UserDetail
 import com.heyproject.githubapps.domain.usecase.GithubUseCase
 import com.heyproject.githubapps.utils.DataDummy
@@ -37,6 +38,7 @@ class DetailViewModelTest {
     private lateinit var detailViewModel: DetailViewModel
 
     private val dummyUserDetail = DataDummy.generateDummyUserDetail()
+    private val dummyUsers = DataDummy.generateDummyUsers()
     private val dummyLogin = "yayan"
 
     @Before
@@ -75,6 +77,78 @@ class DetailViewModelTest {
         val actual = detailViewModel.fetchUserDetail(dummyLogin).getOrAwaitValue()
 
         Mockito.verify(githubUseCase).getUserDetail(dummyLogin)
+
+        assertNotNull(actual)
+        assertTrue(actual is ViewResource.Error)
+        assertEquals(
+            expected.value?.message, actual.message
+        )
+    }
+
+    @Test
+    fun `fetchFollowers Success with Successfully Result`() = runTest {
+        val expected = MutableLiveData<ViewResource<List<User>>>()
+        expected.value = ViewResource.Success(dummyUsers)
+
+        Mockito.`when`(githubUseCase.getFollowers(dummyLogin)).thenReturn(expected.asFlow())
+
+        val actual = detailViewModel.fetchFollowers(dummyLogin).getOrAwaitValue()
+
+        Mockito.verify(githubUseCase).getFollowers(dummyLogin)
+
+        assertNotNull(actual)
+        assertTrue(actual is ViewResource.Success)
+        assertEquals(
+            dummyUsers, (actual as ViewResource.Success).data
+        )
+    }
+
+    @Test
+    fun `fetchFollowers Error with Error Result`() = runTest {
+        val expected = MutableLiveData<ViewResource<List<User>>>()
+        expected.value = ViewResource.Error("Error")
+
+        Mockito.`when`(githubUseCase.getFollowers(dummyLogin)).thenReturn(expected.asFlow())
+
+        val actual = detailViewModel.fetchFollowers(dummyLogin).getOrAwaitValue()
+
+        Mockito.verify(githubUseCase).getFollowers(dummyLogin)
+
+        assertNotNull(actual)
+        assertTrue(actual is ViewResource.Error)
+        assertEquals(
+            expected.value?.message, actual.message
+        )
+    }
+
+    @Test
+    fun `fetchFollowings Success with Successfully Result`() = runTest {
+        val expected = MutableLiveData<ViewResource<List<User>>>()
+        expected.value = ViewResource.Success(dummyUsers)
+
+        Mockito.`when`(githubUseCase.getFollowings(dummyLogin)).thenReturn(expected.asFlow())
+
+        val actual = detailViewModel.fetchFollowings(dummyLogin).getOrAwaitValue()
+
+        Mockito.verify(githubUseCase).getFollowings(dummyLogin)
+
+        assertNotNull(actual)
+        assertTrue(actual is ViewResource.Success)
+        assertEquals(
+            dummyUsers, (actual as ViewResource.Success).data
+        )
+    }
+
+    @Test
+    fun `fetchFollowings Error with Error Result`() = runTest {
+        val expected = MutableLiveData<ViewResource<List<User>>>()
+        expected.value = ViewResource.Error("Error")
+
+        Mockito.`when`(githubUseCase.getFollowings(dummyLogin)).thenReturn(expected.asFlow())
+
+        val actual = detailViewModel.fetchFollowings(dummyLogin).getOrAwaitValue()
+
+        Mockito.verify(githubUseCase).getFollowings(dummyLogin)
 
         assertNotNull(actual)
         assertTrue(actual is ViewResource.Error)

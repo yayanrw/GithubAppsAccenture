@@ -38,7 +38,7 @@ class SearchViewModelTest {
     private lateinit var githubUseCase: GithubUseCase
     private lateinit var searchViewModel: SearchViewModel
 
-    private val dummyResponse = DataDummy.generateDummyUser()
+    private val dummyResponse = DataDummy.generateDummyUsers()
     private val dummyQuery = "1"
 
     @Before

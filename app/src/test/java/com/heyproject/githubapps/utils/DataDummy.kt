@@ -10,7 +10,7 @@ Github : https://github.com/yayanrw
  **/
 
 object DataDummy {
-    fun generateDummyUser(): List<User> {
+    fun generateDummyUsers(): List<User> {
         val users = arrayListOf<User>()
         for (i in 0..10) {
             val user = User(
