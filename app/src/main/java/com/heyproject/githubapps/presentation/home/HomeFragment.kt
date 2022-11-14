@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setObserver() {
-        settingViewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
+        settingViewModel.fetchThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
             settingViewModel.saveThemeSettings(isDarkModeActive)
         }
     }

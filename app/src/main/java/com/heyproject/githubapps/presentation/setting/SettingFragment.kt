@@ -54,7 +54,7 @@ class SettingFragment : Fragment() {
     }
 
     private fun setObserver() {
-        viewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
+        viewModel.fetchThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive ->
             binding.switchTheme.isChecked = isDarkModeActive
         }
     }

@@ -40,7 +40,7 @@ class FollowersFragment : Fragment() {
     private fun fetchFollowers() {
         followAdapter = FollowAdapter()
         viewModel.login.observe(viewLifecycleOwner) { login ->
-            viewModel.getFollowers(login).observe(viewLifecycleOwner) { viewResource ->
+            viewModel.fetchFollowers(login).observe(viewLifecycleOwner) { viewResource ->
                 when (viewResource) {
                     is ViewResource.Loading -> {
                         setLoading(true)

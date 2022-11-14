@@ -95,7 +95,7 @@ Following: ${binding.tvCountFollowing.text}
     }
 
     private fun setObserver() {
-        viewModel.getUserDetail(args.login).observe(this) { userDetailData ->
+        viewModel.fetchUserDetail(args.login).observe(this) { userDetailData ->
             when (userDetailData) {
                 is ViewResource.Loading -> {
                     showLoading(true)

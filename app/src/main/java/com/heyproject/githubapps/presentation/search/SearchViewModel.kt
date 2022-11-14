@@ -13,6 +13,6 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val githubUseCase: GithubUseCase
 ) : ViewModel() {
-    fun searchUser(query: String): LiveData<ViewResource<List<User>>> =
+    fun fetchSearchUser(query: String): LiveData<ViewResource<List<User>>> =
         githubUseCase.searchUsers(query).asLiveData()
 }

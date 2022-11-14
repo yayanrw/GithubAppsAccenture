@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val githubUseCase: GithubUseCase
 ) : ViewModel() {
-    fun getThemeSettings(): LiveData<Boolean> {
+    fun fetchThemeSettings(): LiveData<Boolean> {
         return githubUseCase.getThemeSetting().asLiveData()
     }
 

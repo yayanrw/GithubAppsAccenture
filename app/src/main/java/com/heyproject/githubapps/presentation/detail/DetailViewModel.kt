@@ -24,16 +24,16 @@ class DetailViewModel @Inject constructor(
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean> = _isFavorite
 
-    fun getUserDetail(login: String): LiveData<ViewResource<UserDetail>> {
+    fun fetchUserDetail(login: String): LiveData<ViewResource<UserDetail>> {
         _login.value = login
         return githubUseCase.getUserDetail(login).asLiveData()
     }
 
-    fun getFollowers(login: String): LiveData<ViewResource<List<User>>> {
+    fun fetchFollowers(login: String): LiveData<ViewResource<List<User>>> {
         return githubUseCase.getFollowers(login).asLiveData()
     }
 
-    fun getFollowings(login: String): LiveData<ViewResource<List<User>>> {
+    fun fetchFollowings(login: String): LiveData<ViewResource<List<User>>> {
         return githubUseCase.getFollowings(login).asLiveData()
     }
 

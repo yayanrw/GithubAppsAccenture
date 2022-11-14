@@ -82,7 +82,7 @@ class SearchFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
 
     private fun searchUser(query: String) {
         followAdapter = FollowAdapter()
-        viewModel.searchUser(query).observe(viewLifecycleOwner) { viewResource ->
+        viewModel.fetchSearchUser(query).observe(viewLifecycleOwner) { viewResource ->
             when (viewResource) {
                 is ViewResource.Loading -> {
                     showLoading(isLoading = true, isEmpty = true)
