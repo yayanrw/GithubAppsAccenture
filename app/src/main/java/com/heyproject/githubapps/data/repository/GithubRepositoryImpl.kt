@@ -121,7 +121,7 @@ class GithubRepositoryImpl @Inject constructor(
 
         }.asFlow()
 
-    override suspend fun getFollowers(login: String): Flow<ViewResource<List<User>>> {
+    override fun getFollowers(login: String): Flow<ViewResource<List<User>>> {
         return flow {
             emit(ViewResource.Loading())
 
@@ -142,7 +142,7 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>> {
+    override fun getFollowings(login: String): Flow<ViewResource<List<User>>> {
         return flow {
             emit(ViewResource.Loading())
 

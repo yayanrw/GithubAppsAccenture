@@ -25,7 +25,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val menuHost: MenuHost = requireActivity()
@@ -39,8 +39,10 @@ class HomeFragment : Fragment(), MenuProvider {
             lifecycleOwner = viewLifecycleOwner
             viewModel = viewModel
             homeFragment = this@HomeFragment
-            rvGithubUsers.adapter = UserAdapter()
-            rvGithubUsers.setHasFixedSize(true)
+            rvGithubUsers.apply {
+                adapter = UserAdapter()
+                setHasFixedSize(true)
+            }
         }
 
         fetchUsers()
@@ -74,7 +76,7 @@ class HomeFragment : Fragment(), MenuProvider {
         }
         userAdapter.onItemClick = { selected ->
             val toDetailFragment =
-                HomeFragmentDirections.actionHomeFragmentToDetailFragment(selected.login)
+                HomeFragmentDirections.actionHomeFragmentToDetailActivity(selected.login)
             findNavController().navigate(toDetailFragment)
         }
 

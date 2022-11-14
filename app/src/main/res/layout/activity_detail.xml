@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.detail.FragmentDetail">
+    tools:context=".presentation.detail.DetailActivity">
 
     <data>
 
@@ -11,8 +11,8 @@
             type="com.heyproject.githubapps.domain.model.UserDetail" />
 
         <variable
-            name="detailFragment"
-            type="com.heyproject.githubapps.presentation.detail.DetailFragment" />
+            name="detailActivity"
+            type="com.heyproject.githubapps.presentation.detail.DetailActivity" />
 
         <variable
             name="viewModel"
@@ -94,7 +94,7 @@
                         android:layout_width="@dimen/large_side_margin"
                         android:layout_height="@dimen/large_side_margin"
                         android:contentDescription="@string/view_on_github"
-                        android:onClick="@{() -> detailFragment.goToGithub()}"
+                        android:onClick="@{() -> detailActivity.goToGithub()}"
                         android:src="@drawable/ic_baseline_open_in_new_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +165,7 @@
                             android:id="@+id/img_icon_link"
                             style="@style/IconSmall"
                             android:contentDescription="@string/link_blog"
-                            android:onClick="@{() -> detailFragment.goToGithub()}"
+                            android:onClick="@{() -> detailActivity.goToGithub()}"
                             android:src="@drawable/ic_baseline_link_24"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

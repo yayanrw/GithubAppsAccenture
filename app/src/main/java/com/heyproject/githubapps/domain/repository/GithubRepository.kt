@@ -21,8 +21,8 @@ interface GithubRepository {
     suspend fun deleteUsers()
     suspend fun deleteUserDetail()
     fun searchUsers(query: String): Flow<ViewResource<List<User>>>
-    suspend fun getFollowers(login: String): Flow<ViewResource<List<User>>>
-    suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>>
+    fun getFollowers(login: String): Flow<ViewResource<List<User>>>
+    fun getFollowings(login: String): Flow<ViewResource<List<User>>>
     fun getThemeSetting(): Flow<Boolean>
     suspend fun saveThemeSetting(isDarkModeActive: Boolean)
 }

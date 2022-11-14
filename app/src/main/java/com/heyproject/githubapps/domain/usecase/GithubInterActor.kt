@@ -35,10 +35,10 @@ class GithubInterActor @Inject constructor(private val githubRepository: GithubR
     override fun searchUsers(query: String): Flow<ViewResource<List<User>>> =
         githubRepository.searchUsers(query)
 
-    override suspend fun getFollowers(login: String): Flow<ViewResource<List<User>>> =
+    override fun getFollowers(login: String): Flow<ViewResource<List<User>>> =
         githubRepository.getFollowers(login)
 
-    override suspend fun getFollowings(login: String): Flow<ViewResource<List<User>>> =
+    override fun getFollowings(login: String): Flow<ViewResource<List<User>>> =
         githubRepository.getFollowings(login)
 
     override fun getThemeSetting(): Flow<Boolean> = githubRepository.getThemeSetting()
