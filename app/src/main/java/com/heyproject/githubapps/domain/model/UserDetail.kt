@@ -97,3 +97,12 @@ fun UserDetail.toEntity(): UserDetailEntity {
         isFavorite = isFavorite
     )
 }
+
+fun UserDetail.toUser(): User {
+    return User(
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl,
+        type = "User",
+    )
+}
