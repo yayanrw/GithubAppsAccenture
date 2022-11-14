@@ -32,5 +32,5 @@
     <string name="title_activity_main">Main Activity</string>
     <string name="title_home">Beranda</string>
     <string name="no_internet_and_no_cached">Tidak ada koneksi internet dan tidak ada data cache untuk user %1$s.</string>
-    <string name="oops_something_went_wrong">Waduh! Telah terjadi kesalahan</string>
+    <string name="oops_something_went_wrong">Telah terjadi kesalahan</string>
 </resources>
