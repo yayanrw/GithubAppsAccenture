@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.heyproject.githubapps.presentation.detail.FollowersFragment
+import com.heyproject.githubapps.presentation.detail.FollowingsFragment
 
 /**
 Written by Yayan Rahmat Wijaya on 11/14/2022 08:35
@@ -19,7 +20,7 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
         var fragment: Fragment? = null
         when (position) {
             0 -> fragment = FollowersFragment()
-            1 -> fragment = FollowersFragment()
+            1 -> fragment = FollowingsFragment()
         }
         return fragment as Fragment
     }
