@@ -10,7 +10,9 @@ import com.heyproject.githubapps.R
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentFollowersBinding
 import com.heyproject.githubapps.presentation.adapter.FollowAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FollowersFragment : Fragment() {
     private var _binding: FragmentFollowersBinding? = null
     private val binding get() = _binding!!
