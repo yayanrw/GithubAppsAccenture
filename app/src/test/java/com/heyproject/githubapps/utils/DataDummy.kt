@@ -43,4 +43,22 @@ object DataDummy {
         }
         return userDetails
     }
+
+    fun generateDummyUserDetail(): UserDetail {
+        return UserDetail(
+            Random.nextInt(),
+            "yayan",
+            "name ${Random.nextInt()}",
+            "bio ${Random.nextInt()}",
+            "blog ${Random.nextInt()}",
+            "company ${Random.nextInt()}",
+            "url ${Random.nextInt()}",
+            "avatarUrl ${Random.nextInt()}",
+            Random.nextInt(),
+            Random.nextInt(),
+            Random.nextInt(),
+            "location ${Random.nextInt()}",
+            Random.nextBoolean()
+        )
+    }
 }
