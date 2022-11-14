@@ -69,6 +69,8 @@ class UsersRemoteMediator @Inject constructor(
                 githubDatabase.remoteKeysDao().insertAll(keys)
 
                 response.items.forEach { userDto ->
+                    val responseDetail = githubService.getUserDetail(token, userDto.login)
+                    githubDatabase.userDetailDao().insertUserDetail(responseDetail.toEntity())
 
                     val users = userDto.toEntity()
                     githubDatabase.userDao().insertUser(users)
