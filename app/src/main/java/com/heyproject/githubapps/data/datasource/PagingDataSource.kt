@@ -20,7 +20,7 @@ class PagingDataSourceImpl @Inject constructor(
     private val githubService: GithubService,
 ) : PagingDataSource {
     override fun getUsers(): LiveData<PagingData<UserEntity>> {
-        @OptIn(ExperimentalPagingApi::class) return Pager(config = PagingConfig(pageSize = 10),
+        @OptIn(ExperimentalPagingApi::class) return Pager(config = PagingConfig(pageSize = 30),
             remoteMediator = UsersRemoteMediator(
                 githubDatabase, githubService, BuildConfig.API_KEY
             ),
