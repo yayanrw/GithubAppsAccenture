@@ -35,7 +35,7 @@ class FavoriteViewModelTest {
     private lateinit var githubUseCase: GithubUseCase
     private lateinit var favoriteViewModel: FavoriteViewModel
 
-    private val dummyResponse = DataDummy.generateDummyUserDetail()
+    private val dummyResponse = DataDummy.generateDummyUserDetails()
 
     @Before
     fun setUp() {

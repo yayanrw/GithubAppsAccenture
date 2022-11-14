@@ -21,7 +21,7 @@ object DataDummy {
         return users
     }
 
-    fun generateDummyUserDetail(): List<UserDetail> {
+    fun generateDummyUserDetails(): List<UserDetail> {
         val userDetails = arrayListOf<UserDetail>()
         for (i in 0..10) {
             val userDetail = UserDetail(
