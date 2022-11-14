@@ -1,6 +1,5 @@
 package com.heyproject.githubapps.data.datasource.remote.api
 
-import com.heyproject.githubapps.common.FollowType
 import com.heyproject.githubapps.data.datasource.remote.dto.UserDetailDto
 import com.heyproject.githubapps.data.datasource.remote.dto.UserDto
 import com.heyproject.githubapps.data.datasource.remote.response.UserSearchResponse
@@ -41,6 +40,6 @@ interface GithubService {
     suspend fun getUserFollow(
         @Header("Authorization") token: String,
         @Path("login") login: String,
-        @Path("followType") followType: FollowType
+        @Path("followType") followType: String
     ): List<UserDto>
 }

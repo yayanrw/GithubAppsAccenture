@@ -126,7 +126,7 @@ class GithubRepositoryImpl @Inject constructor(
             emit(ViewResource.Loading())
 
             when (val response =
-                remoteDataSource.fetchUserFollow(login, FollowType.FOLLOWERS).first()) {
+                remoteDataSource.fetchUserFollow(login, FollowType.FOLLOWERS.followName).first()) {
                 is DataResource.Success -> {
                     emit(ViewResource.Success(response.data.map {
                         it.toDomain()
@@ -147,7 +147,7 @@ class GithubRepositoryImpl @Inject constructor(
             emit(ViewResource.Loading())
 
             when (val response =
-                remoteDataSource.fetchUserFollow(login, FollowType.FOLLOWING).first()) {
+                remoteDataSource.fetchUserFollow(login, FollowType.FOLLOWING.followName).first()) {
                 is DataResource.Success -> {
                     emit(ViewResource.Success(response.data.map {
                         it.toDomain()

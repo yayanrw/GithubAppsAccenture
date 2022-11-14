@@ -10,16 +10,6 @@ import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentFollowersBinding
 import com.heyproject.githubapps.presentation.adapter.FollowAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FollowersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FollowersFragment : Fragment() {
     private var _binding: FragmentFollowersBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +21,6 @@ class FollowersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -59,6 +48,7 @@ class FollowersFragment : Fragment() {
                     is ViewResource.Success -> {
                         setLoading(false)
                         followAdapter.submitList(viewResource.data)
+                        binding.rvGithubUsers.adapter = followAdapter
                     }
                     is ViewResource.Error -> {
                         setLoading(false)
