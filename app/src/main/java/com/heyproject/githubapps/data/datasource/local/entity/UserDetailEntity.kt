@@ -23,4 +23,5 @@ data class UserDetailEntity(
     val following: Int?,
     @ColumnInfo(name = "public_repos") val publicRepos: Int?,
     val location: String?,
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean? = false
 )

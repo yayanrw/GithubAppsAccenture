@@ -1,13 +1,14 @@
 package com.heyproject.githubapps.presentation.detail
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.domain.model.User
 import com.heyproject.githubapps.domain.model.UserDetail
 import com.heyproject.githubapps.domain.usecase.GithubUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,8 +18,11 @@ class DetailViewModel @Inject constructor(
     private val _login = MutableLiveData<String>()
     val login: LiveData<String> = _login
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
+    private val _userDetail = MutableLiveData<UserDetail>()
+    val userDetail: LiveData<UserDetail> = _userDetail
+
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
 
     fun getUserDetail(login: String): LiveData<ViewResource<UserDetail>> {
         _login.value = login
@@ -33,9 +37,13 @@ class DetailViewModel @Inject constructor(
         return githubUseCase.getFollowings(login).asLiveData()
     }
 
-    fun getUser(login: String) {
-        viewModelScope.launch {
-            _user.value = githubUseCase.getUser(login).first()
-        }
+    fun setUserDetail(userDetail: UserDetail?) {
+        _userDetail.value = userDetail!!
+    }
+
+    fun setFavorite() {
+        val newState = !_isFavorite.value!!
+        _isFavorite.value = newState
+        githubUseCase.updateUserDetail(_userDetail.value!!, newState)
     }
 }

@@ -18,6 +18,7 @@ interface GithubRepository {
     fun getFavoriteUsers(): Flow<List<User>>
     fun getUserDetail(login: String): Flow<ViewResource<UserDetail>>
     fun updateUser(user: User, state: Boolean)
+    fun updateUserDetail(userDetail: UserDetail, newState: Boolean)
     suspend fun insertUserDetail(userDetail: UserDetail)
     suspend fun deleteUsers()
     suspend fun deleteUserDetail()

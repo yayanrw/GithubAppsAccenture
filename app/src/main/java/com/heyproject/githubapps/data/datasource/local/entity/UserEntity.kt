@@ -1,8 +1,6 @@
 package com.heyproject.githubapps.data.datasource.local.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 /**
 Written by Yayan Rahmat Wijaya on 11/11/2022 00:42
@@ -15,6 +13,14 @@ data class UserEntity(
     val login: String,
     @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
     val type: String?,
-    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis()
+)
+
+@Entity
+data class UserAndUserDetail(
+    @Embedded val userEntity: UserEntity,
+
+    @Relation(
+        parentColumn = "login", entityColumn = "login"
+    ) val userDetailEntity: UserDetailEntity
 )

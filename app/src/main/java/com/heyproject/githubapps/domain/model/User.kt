@@ -13,7 +13,6 @@ data class User(
     val login: String,
     val avatarUrl: String,
     val type: String,
-    val isFavorite: Boolean,
 )
 
 fun UserDto.toEntity(): UserEntity {
@@ -22,7 +21,6 @@ fun UserDto.toEntity(): UserEntity {
         login = login,
         avatarUrl = avatarUrl,
         type = type,
-        isFavorite = false,
     )
 }
 
@@ -32,7 +30,6 @@ fun UserEntity.toDomain(): User {
         login = login,
         avatarUrl = avatarUrl.orEmpty(),
         type = type.orEmpty(),
-        isFavorite = isFavorite,
     )
 }
 
@@ -42,7 +39,6 @@ fun User.toEntity(): UserEntity {
         login = login,
         avatarUrl = avatarUrl,
         type = type,
-        isFavorite = isFavorite,
     )
 }
 
@@ -52,6 +48,5 @@ fun UserDto.toDomain(): User {
         login = login,
         avatarUrl = avatarUrl.orEmpty(),
         type = type.orEmpty(),
-        isFavorite = false,
     )
 }

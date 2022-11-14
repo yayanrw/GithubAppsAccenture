@@ -55,11 +55,12 @@ class GithubRepositoryImpl @Inject constructor(
 
 
     override fun getFavoriteUsers(): Flow<List<User>> {
-        return localDataSource.getFavoriteUsers().map { list ->
-            list.map { userEntity ->
-                userEntity.toDomain()
-            }
-        }
+        TODO()
+//        return localDataSource.getFavoriteUsers().map { list ->
+//            list.map { userEntity ->
+//                userEntity.toDomain()
+//            }
+//        }
     }
 
     override fun updateUser(user: User, state: Boolean) {
@@ -69,9 +70,29 @@ class GithubRepositoryImpl @Inject constructor(
                 login = user.login,
                 avatarUrl = user.avatarUrl,
                 type = user.type,
-                isFavorite = state,
             )
             localDataSource.updateUser(newUser.toEntity())
+        }
+    }
+
+    override fun updateUserDetail(userDetail: UserDetail, newState: Boolean) {
+        appExecutors.diskIO().execute {
+            val newUserDetail = UserDetail(
+                id = userDetail.id,
+                login = userDetail.login,
+                name = userDetail.name,
+                bio = userDetail.bio,
+                blog = userDetail.blog,
+                company = userDetail.company,
+                url = userDetail.url,
+                avatarUrl = userDetail.avatarUrl,
+                followers = userDetail.followers,
+                following = userDetail.following,
+                publicRepos = userDetail.publicRepos,
+                location = userDetail.location,
+                isFavorite = newState
+            )
+            localDataSource.updateUserDetail(newUserDetail.toEntity())
         }
     }
 
@@ -90,10 +111,22 @@ class GithubRepositoryImpl @Inject constructor(
                     emit(ViewResource.Success(localData.toDomain()))
                 }
                 is DataResource.Empty -> {
-                    emit(ViewResource.Success(null))
+                    val localData = localDataSource.getUserDetail(login).first()
+
+                    if (localData != null) {
+                        emit(ViewResource.Success(localData.toDomain()))
+                    } else {
+                        emit(ViewResource.Success(null))
+                    }
                 }
                 is DataResource.Error -> {
-                    emit(ViewResource.Error(response.errorMessage))
+                    val localData = localDataSource.getUserDetail(login).first()
+
+                    if (localData != null) {
+                        emit(ViewResource.Success(localData.toDomain()))
+                    } else {
+                        emit(ViewResource.Error(response.errorMessage))
+                    }
                 }
             }
         }

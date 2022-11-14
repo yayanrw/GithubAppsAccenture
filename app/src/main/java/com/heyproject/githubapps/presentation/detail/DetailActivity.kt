@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -99,6 +98,7 @@ Following: ${binding.tvCountFollowing.text}
                 }
                 is ViewResource.Success -> {
                     showLoading(false)
+                    viewModel.setUserDetail(userDetailData.data)
                     binding.apply {
                         userDetail = userDetailData.data
                         tvCountPublicRepos.text = userDetailData.data?.publicRepos.toString()
@@ -112,14 +112,11 @@ Following: ${binding.tvCountFollowing.text}
             }
         }
 
-        viewModel.getUser(args.login)
-        viewModel.user.observe(this) { user ->
-            if (user.isFavorite) {
+        viewModel.isFavorite.observe(this) { isFavorite ->
+            if (isFavorite) {
                 binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                showToast(getString(R.string.favorite_user_added, args.login))
             } else {
                 binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                showToast(getString(R.string.favorite_user_deleted, args.login))
             }
         }
     }
@@ -140,7 +137,7 @@ Following: ${binding.tvCountFollowing.text}
     }
 
     fun setFavorite() {
-
+        viewModel.setFavorite()
     }
 
     private fun setViewPager() {
@@ -149,10 +146,6 @@ Following: ${binding.tvCountFollowing.text}
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
-    }
-
-    private fun showToast(messages: String) {
-        Toast.makeText(this@DetailActivity, messages, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

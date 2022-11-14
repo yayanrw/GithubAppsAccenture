@@ -1,9 +1,6 @@
 package com.heyproject.githubapps.data.datasource.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.heyproject.githubapps.data.datasource.local.entity.UserDetailEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,7 +11,7 @@ Github : https://github.com/yayanrw
 
 @Dao
 interface UserDetailDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUserDetail(user: UserDetailEntity)
 
     @Query("SELECT * FROM user_detail WHERE login = :login")
@@ -22,4 +19,7 @@ interface UserDetailDao {
 
     @Query("DELETE FROM user_detail")
     suspend fun deleteUserDetail()
+
+    @Update
+    fun updateUser(userDetailEntity: UserDetailEntity)
 }

@@ -23,7 +23,8 @@ data class UserDetail(
     val followers: Int,
     val following: Int,
     val publicRepos: Int,
-    val location: String
+    val location: String,
+    val isFavorite: Boolean
 ) : Parcelable
 
 fun UserDetailDto.toDomain(): UserDetail {
@@ -39,7 +40,8 @@ fun UserDetailDto.toDomain(): UserDetail {
         followers = followers ?: 0,
         following = following ?: 0,
         publicRepos = publicRepos ?: 0,
-        location = location.orEmpty()
+        location = location.orEmpty(),
+        isFavorite = false
     )
 }
 
@@ -56,7 +58,8 @@ fun UserDetailEntity.toDomain(): UserDetail {
         followers = followers ?: 0,
         following = following ?: 0,
         publicRepos = publicRepos ?: 0,
-        location = location.orEmpty()
+        location = location.orEmpty(),
+        isFavorite = isFavorite ?: false
     )
 }
 
@@ -90,6 +93,7 @@ fun UserDetail.toEntity(): UserDetailEntity {
         followers = followers,
         following = following,
         publicRepos = publicRepos,
-        location = location
+        location = location,
+        isFavorite = isFavorite
     )
 }
