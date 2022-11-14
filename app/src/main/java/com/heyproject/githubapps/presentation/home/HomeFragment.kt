@@ -12,7 +12,6 @@ import com.heyproject.githubapps.R
 import com.heyproject.githubapps.databinding.FragmentHomeBinding
 import com.heyproject.githubapps.presentation.adapter.LoadingStateAdapter
 import com.heyproject.githubapps.presentation.adapter.UserAdapter
-import com.heyproject.githubapps.presentation.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

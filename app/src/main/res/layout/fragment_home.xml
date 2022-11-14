@@ -26,10 +26,10 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="@dimen/half_side_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_user" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
