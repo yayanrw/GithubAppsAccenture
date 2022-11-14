@@ -30,4 +30,5 @@
     <string name="lets_search">Let\'s search github users</string>
     <string name="title_activity_main">Main Activity</string>
     <string name="title_home">Home</string>
+    <string name="no_internet_and_no_cached">No internet connection and no cached data for %1$s.</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -119,6 +120,8 @@ Following: ${binding.tvCountFollowing.text}
                 }
                 is ViewResource.Error -> {
                     showLoading(false)
+                    showToast(getString(R.string.no_internet_and_no_cached, args.login))
+                    finish()
                 }
             }
         }
@@ -142,11 +145,15 @@ Following: ${binding.tvCountFollowing.text}
         }
     }
 
-    fun setFavorite() {
+    private fun setFavorite() {
         viewModel.userDetail.value?.let { userDetail ->
             viewModel.setFavorite(userDetail, !userDetail.isFavorite)
             viewModel.fetchUserDetailFlat(args.login)
         }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
     private fun setViewPager() {
