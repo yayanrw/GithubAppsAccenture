@@ -27,24 +27,6 @@ data class UserDetail(
     val isFavorite: Boolean
 ) : Parcelable
 
-fun UserDetailDto.toDomain(): UserDetail {
-    return UserDetail(
-        id = id,
-        login = login,
-        name = name.orEmpty(),
-        bio = bio.orEmpty(),
-        blog = blog.orEmpty(),
-        company = company.orEmpty(),
-        url = url,
-        avatarUrl = avatarUrl.orEmpty(),
-        followers = followers ?: 0,
-        following = following ?: 0,
-        publicRepos = publicRepos ?: 0,
-        location = location.orEmpty(),
-        isFavorite = false
-    )
-}
-
 fun UserDetailEntity.toDomain(): UserDetail {
     return UserDetail(
         id = id,

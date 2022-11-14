@@ -9,4 +9,4 @@ Github : https://github.com/yayanrw
  **/
 
 @HiltAndroidApp
-open class MyApplication : Application() {}
+open class MyApplication : Application()
