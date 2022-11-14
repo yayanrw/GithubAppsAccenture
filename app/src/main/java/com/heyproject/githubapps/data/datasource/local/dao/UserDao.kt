@@ -2,7 +2,7 @@ package com.heyproject.githubapps.data.datasource.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.heyproject.githubapps.data.datasource.local.entity.UserAndUserDetailEntity
+import com.heyproject.githubapps.data.datasource.local.entity.UserDetailAndUserEntity
 import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -21,10 +21,6 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE login = :login")
     fun getUser(login: String): Flow<UserEntity>
-
-    @Transaction
-    @Query("SELECT * FROM user")
-    fun getFavoriteUsers(): Flow<List<UserAndUserDetailEntity>>
 
     @Update
     fun updateUser(user: UserEntity)
