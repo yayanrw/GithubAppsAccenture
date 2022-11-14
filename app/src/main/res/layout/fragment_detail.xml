@@ -127,6 +127,7 @@
                         android:id="@+id/tv_bio"
                         style="@style/TextContent.SubTitle.Light"
                         android:maxLines="5"
+                        android:text="@{userDetail.bio}"
                         tools:text="@tools:sample/lorem/random" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,6 +148,7 @@
                             android:id="@+id/tv_company"
                             style="@style/TextContent.SubTitle.Light"
                             android:layout_marginStart="@dimen/half_side_margin"
+                            android:text="@{userDetail.company}"
                             app:layout_constraintBottom_toBottomOf="@+id/img_icon_company"
                             app:layout_constraintStart_toEndOf="@+id/img_icon_company"
                             app:layout_constraintTop_toTopOf="@+id/img_icon_company"
@@ -175,6 +177,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/half_side_margin"
+                            android:text="@{userDetail.blog}"
                             android:textStyle=""
                             app:layout_constraintBottom_toBottomOf="@+id/img_icon_link"
                             app:layout_constraintStart_toEndOf="@+id/img_icon_link"
@@ -201,7 +204,7 @@
                         <TextView
                             android:id="@+id/tv_count_public_repos"
                             style="@style/TextCenterHorizontal.Title.Big"
-                            android:text="@string/_0" />
+                            tools:text="@string/_0" />
 
                         <TextView
                             style="@style/TextCenterHorizontal.SubTitle"
@@ -218,7 +221,7 @@
                         <TextView
                             android:id="@+id/tv_count_followers"
                             style="@style/TextCenterHorizontal.Title.Big"
-                            android:text="@string/_0" />
+                            tools:text="@string/_0" />
 
                         <TextView
                             style="@style/TextCenterHorizontal.SubTitle"
@@ -235,7 +238,7 @@
                         <TextView
                             android:id="@+id/tv_count_following"
                             style="@style/TextCenterHorizontal.Title.Big"
-                            android:text="@string/_0" />
+                            tools:text="@string/_0" />
 
                         <TextView
                             style="@style/TextCenterHorizontal.SubTitle"

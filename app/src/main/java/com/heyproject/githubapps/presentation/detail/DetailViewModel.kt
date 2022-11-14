@@ -13,6 +13,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val githubUseCase: GithubUseCase
 ) : ViewModel() {
-    fun getUserDetail(login: String): LiveData<ViewResource<UserDetail>> =
-        githubUseCase.getUserDetail(login).asLiveData()
+    fun getUserDetail(login: String): LiveData<ViewResource<UserDetail>> {
+        return githubUseCase.getUserDetail(login).asLiveData()
+    }
+
 }

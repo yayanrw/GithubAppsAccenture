@@ -13,7 +13,9 @@ import androidx.navigation.fragment.navArgs
 import com.heyproject.githubapps.R
 import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.databinding.FragmentDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment(), MenuProvider {
     private val viewModel: DetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
@@ -51,7 +53,12 @@ class DetailFragment : Fragment(), MenuProvider {
                 }
                 is ViewResource.Success -> {
                     showLoading(false)
-                    binding.userDetail = userDetailData.data
+                    binding.apply {
+                        userDetail = userDetailData.data
+                        tvCountPublicRepos.text = userDetailData.data?.publicRepos.toString()
+                        tvCountFollowers.text = userDetailData.data?.followers.toString()
+                        tvCountFollowing.text = userDetailData.data?.following.toString()
+                    }
                 }
                 is ViewResource.Error -> {
                     showLoading(false)

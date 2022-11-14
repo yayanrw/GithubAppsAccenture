@@ -10,7 +10,6 @@ import com.heyproject.githubapps.common.ViewResource
 import com.heyproject.githubapps.data.datasource.PagingDataSource
 import com.heyproject.githubapps.data.datasource.local.LocalDataSource
 import com.heyproject.githubapps.data.datasource.remote.RemoteDataSource
-import com.heyproject.githubapps.data.datasource.remote.dto.UserDetailDto
 import com.heyproject.githubapps.data.datasource.remote.dto.UserDto
 import com.heyproject.githubapps.data.utils.AppExecutors
 import com.heyproject.githubapps.data.utils.DataResource
@@ -55,26 +54,6 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getUserDetail(login: String): Flow<ViewResource<UserDetail>> =
-        object : NetworkBoundResource<UserDetail, UserDetailDto>() {
-            override fun loadFromDB(): Flow<UserDetail> {
-                return localDataSource.getUserDetail(login).map { userDetailEntity ->
-                    userDetailEntity.toDomain()
-                }
-            }
-
-            override fun shouldFetch(data: UserDetail?): Boolean = true
-
-            override suspend fun createCall(): Flow<DataResource<UserDetailDto>> {
-                return remoteDataSource.fetchUserDetail(login)
-            }
-
-            override suspend fun saveCallResult(data: UserDetailDto) {
-                return localDataSource.insertUserDetail(data.toEntity())
-            }
-
-        }.asFlow()
-
     override fun updateUser(user: User, state: Boolean) {
         appExecutors.diskIO().execute {
             val newUser = User(
@@ -90,6 +69,24 @@ class GithubRepositoryImpl @Inject constructor(
 
     override suspend fun insertUserDetail(userDetail: UserDetail) {
         localDataSource.insertUserDetail(userDetail.toEntity())
+    }
+
+    override fun getUserDetail(login: String): Flow<ViewResource<UserDetail>> {
+        return flow {
+            emit(ViewResource.Loading())
+
+            when (val response = remoteDataSource.fetchUserDetail(login).first()) {
+                is DataResource.Success -> {
+                    emit(ViewResource.Success(response.data.toDomain()))
+                }
+                is DataResource.Empty -> {
+                    emit(ViewResource.Success(null))
+                }
+                is DataResource.Error -> {
+                    emit(ViewResource.Error(response.errorMessage))
+                }
+            }
+        }
     }
 
     override suspend fun deleteUsers() {

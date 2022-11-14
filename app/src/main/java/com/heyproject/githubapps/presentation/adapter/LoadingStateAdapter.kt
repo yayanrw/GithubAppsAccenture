@@ -37,7 +37,8 @@ class LoadingStateAdapter(private val retry: () -> Unit) :
 
         fun bind(loadState: LoadState) {
             if (loadState is LoadState.Error) {
-                if (loadState.error.localizedMessage.contains("403")) {
+                val isLimitReach = loadState.error.localizedMessage?.contains("403") ?: false
+                if (isLimitReach) {
                     binding.errorMsg.text =
                         binding.root.context.getString(R.string.reach_maximum_request)
                 } else {
