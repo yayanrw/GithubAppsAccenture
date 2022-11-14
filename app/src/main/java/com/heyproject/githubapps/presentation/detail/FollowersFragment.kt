@@ -49,11 +49,29 @@ class FollowersFragment : Fragment() {
                         setLoading(false)
                         followAdapter.submitList(viewResource.data)
                         binding.rvGithubUsers.adapter = followAdapter
+
+                        viewResource.data?.isEmpty()?.let { setVisibility(it) }
                     }
                     is ViewResource.Error -> {
                         setLoading(false)
                     }
                 }
+            }
+        }
+    }
+
+    private fun setVisibility(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding.apply {
+                progressBar.visibility = View.GONE
+                rvGithubUsers.visibility = View.GONE
+                noData.visibility = View.VISIBLE
+            }
+        } else {
+            binding.apply {
+                progressBar.visibility = View.GONE
+                rvGithubUsers.visibility = View.VISIBLE
+                noData.visibility = View.GONE
             }
         }
     }
