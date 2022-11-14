@@ -94,7 +94,6 @@
                         android:layout_width="@dimen/large_side_margin"
                         android:layout_height="@dimen/large_side_margin"
                         android:contentDescription="@string/favorite_un_favorite"
-                        android:onClick="@{() -> detailActivity.setFavorite()}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

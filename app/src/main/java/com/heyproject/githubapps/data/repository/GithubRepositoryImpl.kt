@@ -124,6 +124,13 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getUserDetailFlat(login: String): Flow<UserDetail> {
+        return flow {
+            val response = localDataSource.getUserDetail(login).first()
+            emit(response.toDomain())
+        }
+    }
+
     override suspend fun deleteUsers() {
         localDataSource.deleteUsers()
     }
@@ -208,7 +215,6 @@ class GithubRepositoryImpl @Inject constructor(
     }
 
     override fun getThemeSetting(): Flow<Boolean> = localDataSource.getThemeSetting()
-
 
     override suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
         localDataSource.saveThemeSetting(isDarkModeActive)

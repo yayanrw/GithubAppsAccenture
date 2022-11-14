@@ -38,6 +38,13 @@ class DetailActivity : AppCompatActivity() {
         }
 
         setObserver()
+        setListener()
+    }
+
+    private fun setListener() {
+        binding.imgbFavorite.setOnClickListener {
+            setFavorite()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,7 +109,6 @@ Following: ${binding.tvCountFollowing.text}
                 }
                 is ViewResource.Success -> {
                     showLoading(false)
-                    viewModel.setUserDetail(userDetailData.data)
                     binding.apply {
                         userDetail = userDetailData.data
                         tvCountPublicRepos.text = userDetailData.data?.publicRepos.toString()
@@ -116,8 +122,9 @@ Following: ${binding.tvCountFollowing.text}
             }
         }
 
-        viewModel.isFavorite.observe(this) { isFavorite ->
-            if (isFavorite) {
+        viewModel.fetchUserDetailFlat(args.login)
+        viewModel.userDetail.observe(this) { userDetail ->
+            if (userDetail.isFavorite) {
                 binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
             } else {
                 binding.imgbFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
@@ -136,7 +143,10 @@ Following: ${binding.tvCountFollowing.text}
     }
 
     fun setFavorite() {
-        viewModel.setFavorite()
+        viewModel.userDetail.value?.let { userDetail ->
+            viewModel.setFavorite(userDetail, !userDetail.isFavorite)
+            viewModel.fetchUserDetailFlat(args.login)
+        }
     }
 
     private fun setViewPager() {
