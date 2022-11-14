@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_homeFragment_to_detailActivity"
             app:destination="@id/detailActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
@@ -31,4 +37,14 @@
             android:name="login"
             app:argType="string" />
     </activity>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.heyproject.githubapps.presentation.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.heyproject.githubapps.presentation.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>
