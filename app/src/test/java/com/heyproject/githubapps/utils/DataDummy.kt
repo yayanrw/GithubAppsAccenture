@@ -1,5 +1,7 @@
 package com.heyproject.githubapps.utils
 
+import com.heyproject.githubapps.data.datasource.local.entity.UserEntity
+import com.heyproject.githubapps.data.datasource.remote.dto.UserDto
 import com.heyproject.githubapps.domain.model.User
 import com.heyproject.githubapps.domain.model.UserDetail
 import kotlin.random.Random
@@ -59,6 +61,40 @@ object DataDummy {
             Random.nextInt(),
             "location ${Random.nextInt()}",
             Random.nextBoolean()
+        )
+    }
+
+    fun generateDummyUserDto(): UserDto {
+        return UserDto(
+            avatarUrl = "avatarUrl",
+            eventsUrl = "eventsUrl",
+            followersUrl = "followersUrl",
+            followingUrl = "followingUrl",
+            gistsUrl = "gistsUrl",
+            gravatarId = "gravatarId",
+            htmlUrl = "htmlUrl",
+            id = 1,
+            login = "login",
+            nodeId = "nodeId",
+            organizationsUrl = "organizationsUrl",
+            receivedEventsUrl = "receivedEventsUrl",
+            reposUrl = "reposUrl",
+            score = 1.0,
+            siteAdmin = true,
+            starredUrl = "starredUrl",
+            subscriptionsUrl = "subscriptionsUrl",
+            type = "type",
+            url = "url",
+        )
+    }
+
+    fun generateDummyUserEntity(): UserEntity {
+        return UserEntity(
+            id = 1,
+            login = "login",
+            avatarUrl = "avatarUrl",
+            type = "type",
+            createdAt = 102129129
         )
     }
 }
